@@ -1,11 +1,20 @@
 // ignore_for_file: sized_box_for_whitespace
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:money_manager_app/screens/categories.dart';
 import 'package:money_manager_app/screens/finalcial_report.dart';
 import 'package:money_manager_app/screens/settings.dart';
+
+List<Widget> periods = <Widget>[
+  Text("Today"),
+  Text("Week"),
+  Text("Month"),
+  Text("Years"),
+];
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,11 +24,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final List<bool> _selectPeriods = <bool>[true, true, false, false];
+  bool vertical = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.amber.shade50,
+        backgroundColor: Color.fromARGB(255, 239, 247, 255),
         body: Column(
           children: [
             Stack(
@@ -29,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 250,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 30, 28, 42),
+                    color: Color.fromARGB(255, 35, 43, 255),
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(30),
                         bottomRight: Radius.circular(30)),
@@ -90,12 +101,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Positioned(
-                  left: 19,
-                  top: 155,
+                  left: 23.5,
+                  top: 160,
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color.fromARGB(255, 0, 181, 51),
+                      color: Color.fromARGB(255, 47, 137, 255),
                     ),
                     // shape: RoundedRectangleBorder(
                     //     borderRadius: BorderRadius.circular(15)),
@@ -161,6 +172,30 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
+                Positioned(
+                  top: 320,
+                  left: 30,
+                  child: ToggleButtons(
+                    direction: vertical ? Axis.vertical : Axis.horizontal,
+                    onPressed: (int index) {
+                      print(index);
+                      setState(() {
+                        for (int i = 0; i < _selectPeriods.length; i++) {
+                          _selectPeriods[i] = i == index;
+                        }
+                      });
+                    },
+                    color: Colors.white,
+                    borderColor: Colors.white,
+                    borderRadius: BorderRadius.circular(25),
+                    selectedBorderColor: Color.fromARGB(255, 35, 43, 255),
+                    selectedColor: Colors.white,
+                    fillColor: Color.fromARGB(255, 35, 43, 255),
+                    constraints: BoxConstraints(minHeight: 30, minWidth: 85),
+                    children: periods,
+                    isSelected: _selectPeriods,
+                  ),
+                )
               ],
             ),
             Padding(
@@ -188,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: ListTile(
                             leading: Icon(
                               Icons.arrow_upward,
-                              color: Colors.green,
+                              color: Colors.blue,
                               size: 30,
                             ),
                             title: Text(
