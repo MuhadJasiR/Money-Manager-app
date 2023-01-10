@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:money_manager_app/screens/add_screen.dart';
 import 'package:money_manager_app/screens/categories.dart';
 import 'package:money_manager_app/screens/finalcial_report.dart';
 import 'package:money_manager_app/screens/home_screen.dart';
@@ -34,9 +35,13 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
           child: currentScreen,
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: ((context) {
+              return AddTransaction();
+            })));
+          },
           child: Icon(Icons.add),
-          backgroundColor: Colors.green,
+          backgroundColor: Color.fromARGB(255, 35, 43, 255),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
@@ -64,7 +69,9 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                           Icon(
                             Icons.home,
                             size: 40,
-                            color: currentTab == 0 ? Colors.green : Colors.grey,
+                            color: currentTab == 0
+                                ? Color.fromARGB(255, 35, 43, 255)
+                                : Colors.grey,
                           ),
                         ],
                       ),
@@ -83,7 +90,9 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                           Icon(
                             Icons.category_outlined,
                             size: 40,
-                            color: currentTab == 1 ? Colors.green : Colors.grey,
+                            color: currentTab == 1
+                                ? Color.fromARGB(255, 35, 43, 255)
+                                : Colors.grey,
                           ),
                         ],
                       ),
@@ -107,7 +116,9 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                           Icon(
                             Icons.donut_large_rounded,
                             size: 40,
-                            color: currentTab == 2 ? Colors.green : Colors.grey,
+                            color: currentTab == 2
+                                ? Color.fromARGB(255, 35, 43, 255)
+                                : Colors.grey,
                           ),
                         ],
                       ),
@@ -126,7 +137,9 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                           Icon(
                             Icons.settings,
                             size: 40,
-                            color: currentTab == 3 ? Colors.green : Colors.grey,
+                            color: currentTab == 3
+                                ? Color.fromARGB(255, 35, 43, 255)
+                                : Colors.grey,
                           ),
                         ],
                       ),

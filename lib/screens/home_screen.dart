@@ -1,20 +1,6 @@
-// ignore_for_file: sized_box_for_whitespace
-
-import 'dart:ffi';
+// ignore_for_file: sized_box_for_whitespace, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:money_manager_app/screens/categories.dart';
-import 'package:money_manager_app/screens/finalcial_report.dart';
-import 'package:money_manager_app/screens/settings.dart';
-
-List<Widget> periods = <Widget>[
-  Text("Today"),
-  Text("Week"),
-  Text("Month"),
-  Text("Years"),
-];
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,8 +10,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<bool> _selectPeriods = <bool>[true, true, false, false];
-  bool vertical = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -58,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 173),
+                      padding: const EdgeInsets.only(left: 200),
                       child: Text(
                         "Jasir Ali",
                         style: TextStyle(
@@ -66,13 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.search,
-                          color: Colors.white,
-                          size: 30,
-                        ))
                   ],
                 ),
                 Positioned(
@@ -172,42 +149,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                Positioned(
-                  top: 320,
-                  left: 30,
-                  child: ToggleButtons(
-                    direction: vertical ? Axis.vertical : Axis.horizontal,
-                    onPressed: (int index) {
-                      print(index);
-                      setState(() {
-                        for (int i = 0; i < _selectPeriods.length; i++) {
-                          _selectPeriods[i] = i == index;
-                        }
-                      });
-                    },
-                    color: Colors.white,
-                    borderColor: Colors.white,
-                    borderRadius: BorderRadius.circular(25),
-                    selectedBorderColor: Color.fromARGB(255, 35, 43, 255),
-                    selectedColor: Colors.white,
-                    fillColor: Color.fromARGB(255, 35, 43, 255),
-                    constraints: BoxConstraints(minHeight: 30, minWidth: 85),
-                    children: periods,
-                    isSelected: _selectPeriods,
-                  ),
-                )
               ],
             ),
             Padding(
               padding: const EdgeInsets.only(right: 25, top: 125, left: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
                     "Recent Transation",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  Text("View All")
+                  TextButton(onPressed: () {}, child: Text("View All"))
                 ],
               ),
             ),
