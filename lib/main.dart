@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_manager_app/screens/home_screen.dart';
 import 'package:money_manager_app/screens/splash_screen.dart';
-import 'package:money_manager_app/widgets/bottom_navigation_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +36,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: createMaterialColor(Color.fromARGB(255, 35, 43, 255)),
       ),
       // ignore: prefer_const_constructors
-      home: BottomNavBar(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
