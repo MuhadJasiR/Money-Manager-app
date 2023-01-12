@@ -11,8 +11,8 @@ class IntroPage3 extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 300),
+          SizedBox(
+            height: 30,
           ),
           Image.asset("asset/93344-money-investment.gif"),
           const Text(

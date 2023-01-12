@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:money_manager_app/indro_page/intro_page2.dart';
+import 'package:money_manager_app/intro_page/intro_page2.dart';
 
 class IntroPage1 extends StatelessWidget {
   const IntroPage1({super.key});
@@ -11,8 +11,8 @@ class IntroPage1 extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 300),
+          SizedBox(
+            height: 30,
           ),
           Image.asset("asset/9888-money-money-money.gif"),
           Text(

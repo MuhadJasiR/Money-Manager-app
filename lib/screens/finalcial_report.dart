@@ -6,10 +6,10 @@ class FinancialChart extends StatefulWidget {
   const FinancialChart({super.key});
 
   @override
-  State<FinancialChart> createState() => _FinacialChartState();
+  State<FinancialChart> createState() => _FinancialChartState();
 }
 
-class _FinacialChartState extends State<FinancialChart> {
+class _FinancialChartState extends State<FinancialChart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

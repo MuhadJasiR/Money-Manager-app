@@ -1,6 +1,9 @@
-// ignore_for_file: sized_box_for_whitespace, prefer_const_constructors
+// ignore_for_file: sized_box_for_whitespace, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:money_manager_app/screens/flipping_container.dart';
+import 'package:money_manager_app/screens/view_all.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -77,78 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                Positioned(
-                  left: 23.5,
-                  top: 160,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Color.fromARGB(255, 47, 137, 255),
-                    ),
-                    // shape: RoundedRectangleBorder(
-                    //     borderRadius: BorderRadius.circular(15)),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30)),
-                      height: 210,
-                      width: 360,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 175,
-                  left: 50,
-                  child: Column(
-                    children: const [
-                      Icon(
-                        Icons.monetization_on_outlined,
-                        color: Colors.white,
-                        size: 85,
-                      ),
-                      Text(
-                        "Income",
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "25000",
-                        style: TextStyle(
-                            fontSize: 40,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                ),
-                Positioned(
-                  top: 175,
-                  left: 220,
-                  child: Column(
-                    children: const [
-                      Icon(
-                        Icons.monetization_on_outlined,
-                        color: Colors.white,
-                        size: 85,
-                      ),
-                      Text(
-                        "Expenses",
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "11200",
-                        style: TextStyle(
-                            fontSize: 40,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                ),
+                Positioned(left: 23.5, top: 160, child: FlippingContainer()),
               ],
             ),
             Padding(
@@ -160,7 +92,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     "Recent Transation",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  TextButton(onPressed: () {}, child: Text("View All"))
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (ctx) {
+                          return ViewListScreen();
+                        }));
+                      },
+                      child: Text("View All"))
                 ],
               ),
             ),

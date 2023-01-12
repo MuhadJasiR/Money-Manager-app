@@ -33,7 +33,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: createMaterialColor(Color.fromARGB(255, 35, 43, 255)),
+        primarySwatch:
+            createMaterialColor(const Color.fromARGB(255, 35, 43, 255)),
       ),
       // ignore: prefer_const_constructors
       home: SplashScreen(),

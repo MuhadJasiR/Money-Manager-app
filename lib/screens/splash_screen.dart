@@ -1,6 +1,6 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:money_manager_app/screens/introduction_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,6 +11,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
   void initState() {
     gotoHomeScreen(context);
     super.initState();
@@ -47,8 +48,8 @@ class _SplashScreenState extends State<SplashScreen> {
 }
 
 Future<void> gotoHomeScreen(context) async {
-  await Future.delayed(Duration(seconds: 3));
-  Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-    return IntroductionScreen();
+  await Future.delayed(Duration(seconds: 1));
+  Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx) {
+    return const IntroductionScreen();
   }));
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, sized_box_for_whitespace, avoid_print
+
 import 'package:flutter/material.dart';
 
 List<Widget> transactionType = <Widget>[Text("INCOME"), Text("EXPENSE")];
@@ -11,12 +13,12 @@ class AddTransaction extends StatefulWidget {
 
 class _AddTransactionState extends State<AddTransaction> {
   _myFormState() {
-    _selectedVal = _catogariesList[0];
+    _selectedVal = _categoriesList[0];
   }
 
   List<bool> _selectTranscationType = <bool>[false, false];
   bool vertical = false;
-  final _catogariesList = [
+  final _categoriesList = [
     'salary',
     'Commission',
     'Rental',
@@ -24,12 +26,13 @@ class _AddTransactionState extends State<AddTransaction> {
     'Investment',
     'Other'
   ];
-  String? _selectedVal = "Select Categories";
+  String? _selectedVal = "";
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -62,6 +65,7 @@ class _AddTransactionState extends State<AddTransaction> {
                     height: 550,
                     width: double.infinity,
                     child: Card(
+                      elevation: 5,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Padding(
@@ -121,7 +125,9 @@ class _AddTransactionState extends State<AddTransaction> {
                                 height: 40,
                                 width: 350,
                                 child: TextField(
+                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
+                                      fillColor: Colors.white,
                                       hintText: "Enter Amount",
                                       border: OutlineInputBorder(
                                           borderRadius:
@@ -143,25 +149,51 @@ class _AddTransactionState extends State<AddTransaction> {
                               Container(
                                 height: 40,
                                 child: DropdownButtonFormField(
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                  ),
-                                  value: null,
-                                  items: _catogariesList.map(
-                                    (e) {
-                                      return DropdownMenuItem(
-                                        child: Text(e),
-                                        value: e,
-                                      );
-                                    },
-                                  ).toList(),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      _selectedVal = val as String;
-                                    });
+                                  hint: Text("Select Categories"),
+                                  onChanged: (value) {
+                                    print(value);
                                   },
+                                  items: _categoriesList.map((e) {
+                                    return DropdownMenuItem(
+                                      value: e,
+                                      child: Text(e),
+                                    );
+                                  }).toList(),
+                                  icon: Icon(
+                                    Icons.arrow_drop_down_circle,
+                                    color: Color.fromARGB(255, 45, 35, 255),
+                                  ),
+                                  decoration: InputDecoration(enabled: false),
                                 ),
-                              )
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                "Notes",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 128, 128, 128)),
+                              ),
+                              SizedBox(height: 15),
+                              Container(
+                                height: 40,
+                                width: 350,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      hintText: "Enter Notes",
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      filled: true),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {}, child: Text("Add")),
                             ],
                           ),
                         ),
