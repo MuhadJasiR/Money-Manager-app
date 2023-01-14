@@ -1,11 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:money_manager_app/db/category_db.dart';
+import 'package:money_manager_app/models/category_modal.dart';
 import 'package:money_manager_app/screens/add_screen.dart';
 import 'package:money_manager_app/screens/categories.dart';
 import 'package:money_manager_app/screens/finalcial_report.dart';
 import 'package:money_manager_app/screens/home_screen.dart';
 import 'package:money_manager_app/screens/settings.dart';
+import 'package:money_manager_app/widgets/category_add_popup.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -15,6 +18,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavigationBarState extends State<BottomNavBar> {
+  // static ValueNotifier<int> selectIndexNotifier = ValueNotifier(0);
   int currentTab = 0;
   final List<Widget> screens = [
     HomeScreen(),
@@ -36,9 +40,21 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: ((context) {
-              return AddTransaction();
-            })));
+            if (currentTab == 0) {
+              print("add Transaction");
+              Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                return AddTransaction();
+              })));
+            } else {
+              showCategoryAddPopup(context);
+              // print("add category");
+              // final _sample = CategoryModel(
+              //   id: DateTime.now().microsecondsSinceEpoch.toString(),
+              //   name: "travel",
+              //   type: CategoryType.expense,
+              // );
+              // CategoryDB().insertCategory(_sample);
+            }
           },
           child: Icon(Icons.add),
           backgroundColor: Color.fromARGB(255, 35, 43, 255),

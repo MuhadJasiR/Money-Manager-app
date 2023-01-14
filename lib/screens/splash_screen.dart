@@ -1,7 +1,9 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/screens/introduction_screen.dart';
+import 'package:money_manager_app/widgets/bottom_navigation_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,7 +15,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    gotoHomeScreen(context);
+    checkFirstScreen(context);
     super.initState();
   }
 
@@ -47,9 +49,25 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-Future<void> gotoHomeScreen(context) async {
-  await Future.delayed(Duration(seconds: 1));
-  Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx) {
-    return const IntroductionScreen();
-  }));
+// Future<void> gotoHomeScreen(context) async {
+//   await Future.delayed(Duration(seconds: 3));
+//   Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx) {
+//     return const IntroductionScreen();
+//   }));
+// }
+
+Future checkFirstScreen(context) async {
+  await Future.delayed(Duration(seconds: 2));
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool _seen = (prefs.getBool('seen') ?? false);
+  if (_seen) {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+      return BottomNavBar();
+    }));
+  } else {
+    await prefs.setBool('seen', true);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+      return IntroductionScreen();
+    }));
+  }
 }

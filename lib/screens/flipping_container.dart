@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +19,10 @@ class _FlippingContainerState extends State<FlippingContainer> {
     flipCardController = FlipCardController();
   }
 
+  @override
   Widget build(BuildContext context) {
-    return Container(
-        child: FlipCard(
+    return FlipCard(
+      direction: FlipDirection.VERTICAL,
       flipOnTouch: true,
       controller: flipCardController,
       front: Container(
@@ -36,61 +39,53 @@ class _FlippingContainerState extends State<FlippingContainer> {
             children: [
               Column(
                 children: [
-                  Positioned(
-                    top: 175,
-                    left: 50,
-                    child: Column(
-                      children: const [
-                        Icon(
-                          Icons.monetization_on_outlined,
-                          color: Colors.white,
-                          size: 85,
-                        ),
-                        Text(
-                          "Income",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "25000",
-                          style: TextStyle(
-                              fontSize: 40,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
+                  Column(
+                    children: const [
+                      Icon(
+                        Icons.monetization_on_outlined,
+                        color: Colors.white,
+                        size: 85,
+                      ),
+                      Text(
+                        "Income",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "25000",
+                        style: TextStyle(
+                            fontSize: 40,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
                   ),
                 ],
               ),
-              Positioned(
-                top: 175,
-                left: 220,
-                child: Column(
-                  children: const [
-                    Icon(
-                      Icons.monetization_on_outlined,
-                      color: Colors.white,
-                      size: 85,
-                    ),
-                    Text(
-                      "Expenses",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "11200",
-                      style: TextStyle(
-                          fontSize: 40,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
+              Column(
+                children: const [
+                  Icon(
+                    Icons.monetization_on_outlined,
+                    color: Colors.white,
+                    size: 85,
+                  ),
+                  Text(
+                    "Expenses",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "11200",
+                    style: TextStyle(
+                        fontSize: 40,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
               ),
             ],
           ),
@@ -99,9 +94,15 @@ class _FlippingContainerState extends State<FlippingContainer> {
       back: Container(
         height: 210,
         width: 360,
-        color: Colors.blue,
-        child: Text("iam Muhammed Jasir ali"),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: Colors.blue,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Text("iam Muhammed Jasir ali"),
+        ),
       ),
-    ));
+    );
   }
 }

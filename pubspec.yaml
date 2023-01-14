@@ -29,11 +29,16 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  build_runner: ^2.3.3
   cupertino_icons: ^1.0.2
   custom_radio_grouped_button: ^2.1.2+2
   flip_card: ^0.6.0
   flutter:
     sdk: flutter
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  hive_generator: ^2.0.0
+  shared_preferences: ^2.0.15
   smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:

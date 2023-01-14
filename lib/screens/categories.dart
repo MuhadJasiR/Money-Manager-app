@@ -1,6 +1,9 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:money_manager_app/db/category_db.dart';
+import 'package:money_manager_app/screens/categories_tab_bar_page/expense_page.dart';
+import 'package:money_manager_app/screens/categories_tab_bar_page/income_page.dart';
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -13,8 +16,14 @@ class _CategoriesState extends State<Categories>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
+  @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+    CategoryDB().getCategories().then((value) {
+      print("categories get");
+      print(value.toString());
+    });
+    super.initState();
   }
 
   @override
@@ -41,8 +50,22 @@ class _CategoriesState extends State<Categories>
                 controller: _tabController,
                 indicator:
                     BoxDecoration(borderRadius: BorderRadius.circular(25)),
-                tabs: [Tab(text: "INCOME"), Tab(text: "EXPENSE")],
+                tabs: [
+                  Tab(
+                    text: "INCOME",
+                  ),
+                  Tab(text: "EXPENSE"),
+                ],
               ),
+            ),
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                IncomePageScreen(),
+                ExpenseScreenPage(),
+              ],
             ),
           )
         ],
