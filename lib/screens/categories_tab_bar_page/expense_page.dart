@@ -1,4 +1,8 @@
+// ignore_for_file: sort_child_properties_last
+
 import 'package:flutter/material.dart';
+import 'package:money_manager_app/db/category_db.dart';
+import 'package:money_manager_app/models/category_modal.dart';
 
 class ExpenseScreenPage extends StatelessWidget {
   const ExpenseScreenPage({super.key});
@@ -7,23 +11,50 @@ class ExpenseScreenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 30,
-            crossAxisSpacing: 30,
-          ),
-          itemCount: 3,
-          itemBuilder: ((context, index) {
-            return Container(
-              height: 20,
-              width: 40,
-              color: Colors.black,
-              // child: Card(
-              //   color: Color.fromARGB(255, 45, 35, 255),
-              // ),
-            );
-          })),
+      child: ValueListenableBuilder(
+        valueListenable: CategoryDB().expenseCategoryListListener,
+        builder: (BuildContext ctx, List<CategoryModel> newList, Widget? _) {
+          return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: (2 / 1.3),
+                crossAxisCount: 2,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
+              ),
+              itemCount: newList.length,
+              itemBuilder: ((context, index) {
+                final category = newList[index];
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.teal[200],
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        category.name,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            CategoryDB.instance.deleteCategoty(category.id);
+                          },
+                          icon: Icon(Icons.delete))
+                    ],
+                  ),
+                  height: 20,
+                  width: 40,
+                  // child: Card(
+                  //   color: Color.fromARGB(255, 45, 35, 255),
+                  // ),
+                );
+              }));
+        },
+      ),
     );
   }
 }
