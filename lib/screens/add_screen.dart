@@ -81,7 +81,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                     color: Color.fromARGB(255, 128, 128, 128)),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 15,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 70),
@@ -120,7 +120,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromARGB(255, 128, 128, 128)),
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(height: 20),
                               Container(
                                 height: 40,
                                 width: 350,
@@ -135,7 +135,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                       filled: true),
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              SizedBox(height: 20),
                               Text(
                                 "Categories",
                                 style: TextStyle(
@@ -144,7 +144,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                     color: Color.fromARGB(255, 128, 128, 128)),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 15,
                               ),
                               Container(
                                 height: 40,
@@ -166,7 +166,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                   decoration: InputDecoration(enabled: false),
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              SizedBox(height: 20),
                               Text(
                                 "Notes",
                                 textAlign: TextAlign.left,
@@ -175,7 +175,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromARGB(255, 128, 128, 128)),
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(height: 20),
                               Container(
                                 height: 40,
                                 width: 350,
@@ -190,10 +190,23 @@ class _AddTransactionState extends State<AddTransaction> {
                                 ),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 30,
                               ),
-                              ElevatedButton(
-                                  onPressed: () {}, child: Text("Add")),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 100),
+                                child: TextButton.icon(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.calendar_today),
+                                    label: Text("Select Date")),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              SizedBox(
+                                width: 500,
+                                child: ElevatedButton(
+                                    onPressed: () {}, child: Text("Add")),
+                              ),
                             ],
                           ),
                         ),
