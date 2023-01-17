@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:money_manager_app/intro_page/login_page.dart';
 import 'package:money_manager_app/widgets/bottom_navigation_bar.dart';
 
 class IntroPage3 extends StatelessWidget {
@@ -42,7 +43,7 @@ class IntroPage3 extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (ctx) {
-                    return BottomNavBar();
+                    return LoginPage();
                   }),
                 );
               },

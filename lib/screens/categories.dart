@@ -49,7 +49,7 @@ class _CategoriesState extends State<Categories>
                 controller: _tabController,
                 indicator:
                     BoxDecoration(borderRadius: BorderRadius.circular(25)),
-                tabs: [
+                tabs: const [
                   Tab(
                     text: "INCOME",
                   ),
@@ -61,7 +61,7 @@ class _CategoriesState extends State<Categories>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [
+              children: const [
                 IncomePageScreen(),
                 ExpenseScreenPage(),
               ],

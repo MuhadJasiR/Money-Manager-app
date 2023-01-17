@@ -49,13 +49,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// Future<void> gotoHomeScreen(context) async {
-//   await Future.delayed(Duration(seconds: 3));
-//   Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx) {
-//     return const IntroductionScreen();
-//   }));
-// }
-
 Future checkFirstScreen(context) async {
   await Future.delayed(Duration(seconds: 2));
   SharedPreferences prefs = await SharedPreferences.getInstance();

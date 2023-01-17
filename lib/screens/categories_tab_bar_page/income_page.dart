@@ -30,6 +30,18 @@ class IncomePageScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 120),
+                          child: IconButton(
+                              onPressed: () {
+                                CategoryDB.instance.deleteCategoty(category.id);
+                              },
+                              icon: Icon(
+                                Icons.dangerous_outlined,
+                                color: Colors.red,
+                                size: 20,
+                              )),
+                        ),
                         Text(
                           category.name,
                           textAlign: TextAlign.center,
@@ -38,11 +50,6 @@ class IncomePageScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 255, 255, 255)),
                         ),
-                        IconButton(
-                            onPressed: () {
-                              CategoryDB.instance.deleteCategoty(category.id);
-                            },
-                            icon: Icon(Icons.delete))
                       ],
                     ),
                     height: 20,

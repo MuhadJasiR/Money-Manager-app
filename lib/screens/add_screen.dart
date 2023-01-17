@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, sized_box_for_whitespace, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:money_manager_app/db/category_db.dart';
+import 'package:money_manager_app/db/transacrtion_model.dart';
+import 'package:money_manager_app/models/category_modal.dart';
 
 List<Widget> transactionType = <Widget>[Text("INCOME"), Text("EXPENSE")];
 
@@ -12,21 +15,23 @@ class AddTransaction extends StatefulWidget {
 }
 
 class _AddTransactionState extends State<AddTransaction> {
-  _myFormState() {
-    _selectedVal = _categoriesList[0];
+  DateTime? _selectedDate;
+  CategoryType? _selectedCategoryType;
+  CategoryModel? _selectedCategoryModel;
+  final _notesTextEditingController = TextEditingController();
+  final _amountTextEditingController = TextEditingController();
+  // ignore: prefer_typing_uninitialized_variables
+  var selectedType;
+  String? _categoryId;
+
+  @override
+  void initState() {
+    _selectedCategoryType = CategoryType.income;
+    super.initState();
   }
 
-  List<bool> _selectTranscationType = <bool>[false, false];
+  final List<bool> _selectTranscationType = <bool>[false, false];
   bool vertical = false;
-  final _categoriesList = [
-    'salary',
-    'Commission',
-    'Rental',
-    'Freelance',
-    'Investment',
-    'Other'
-  ];
-  String? _selectedVal = "";
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +100,8 @@ class _AddTransactionState extends State<AddTransaction> {
                                           i < _selectTranscationType.length;
                                           i++) {
                                         _selectTranscationType[i] = i == index;
+                                        selectedType = index;
+                                        _categoryId = null;
                                       }
                                     });
                                   },
@@ -125,6 +132,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                 height: 40,
                                 width: 350,
                                 child: TextField(
+                                  controller: _amountTextEditingController,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                       fillColor: Colors.white,
@@ -148,23 +156,31 @@ class _AddTransactionState extends State<AddTransaction> {
                               ),
                               Container(
                                 height: 40,
-                                child: DropdownButtonFormField(
-                                  hint: Text("Select Categories"),
-                                  onChanged: (value) {
-                                    print(value);
-                                  },
-                                  items: _categoriesList.map((e) {
-                                    return DropdownMenuItem(
-                                      value: e,
-                                      child: Text(e),
-                                    );
-                                  }).toList(),
-                                  icon: Icon(
-                                    Icons.arrow_drop_down_circle,
-                                    color: Color.fromARGB(255, 45, 35, 255),
-                                  ),
-                                  decoration: InputDecoration(enabled: false),
-                                ),
+                                child: DropdownButton(
+                                    hint: Text(
+                                        "                       Select Category                      "),
+                                    value: _categoryId,
+                                    items: (selectedType == 0
+                                            ? CategoryDB()
+                                                .incomeCategoryListListener
+                                            : CategoryDB()
+                                                .expenseCategoryListListener)
+                                        .value
+                                        .map((e) {
+                                      return DropdownMenuItem(
+                                        value: e.id,
+                                        child: Text(e.name),
+                                        onTap: () {
+                                          _selectedCategoryModel = e;
+                                        },
+                                      );
+                                    }).toList(),
+                                    onChanged: (selectedValue) {
+                                      print(selectedValue);
+                                      setState(() {
+                                        _categoryId = selectedValue;
+                                      });
+                                    }),
                               ),
                               SizedBox(height: 20),
                               Text(
@@ -180,6 +196,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                 height: 40,
                                 width: 350,
                                 child: TextField(
+                                  controller: _notesTextEditingController,
                                   decoration: InputDecoration(
                                       fillColor: Colors.white,
                                       hintText: "Enter Notes",
@@ -195,9 +212,27 @@ class _AddTransactionState extends State<AddTransaction> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 100),
                                 child: TextButton.icon(
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      final selectedDateTemp =
+                                          await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime.now()
+                                            .subtract(const Duration(days: 30)),
+                                        lastDate: DateTime.now(),
+                                      );
+                                      if (selectedDateTemp == null) {
+                                        return;
+                                      } else {
+                                        setState(() {
+                                          _selectedDate = selectedDateTemp;
+                                        });
+                                      }
+                                    },
                                     icon: Icon(Icons.calendar_today),
-                                    label: Text("Select Date")),
+                                    label: Text(_selectedDate == null
+                                        ? "Select Date"
+                                        : _selectedDate!.toString())),
                               ),
                               SizedBox(
                                 height: 20,
@@ -205,7 +240,10 @@ class _AddTransactionState extends State<AddTransaction> {
                               SizedBox(
                                 width: 500,
                                 child: ElevatedButton(
-                                    onPressed: () {}, child: Text("Add")),
+                                    onPressed: () {
+                                      addTransaction();
+                                    },
+                                    child: Text("Add")),
                               ),
                             ],
                           ),
@@ -219,6 +257,35 @@ class _AddTransactionState extends State<AddTransaction> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> addTransaction() async {
+    final notesText = _notesTextEditingController.text;
+    final amountText = _amountTextEditingController.text;
+
+    if (notesText.isEmpty) {
+      return;
+    }
+    if (amountText.isEmpty) {
+      return;
+    }
+    if (_selectedDate == null) {
+      return;
+    }
+    final parseAmount = double.tryParse(amountText);
+    if (parseAmount == null) {
+      return;
+    }
+    if (_selectedCategoryModel == null) {
+      return;
+    }
+    final _model = TransactionModel(
+      notes: notesText,
+      amount: parseAmount,
+      date: _selectedDate!,
+      type: selectedType,
+      category: _selectedCategoryModel!,
     );
   }
 }

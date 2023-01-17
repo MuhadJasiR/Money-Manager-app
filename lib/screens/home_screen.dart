@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                         padding: EdgeInsets.only(left: 200),
                         child: Text(
-                          "Jasir Ali",
+                          "Jasir ",
                           style: TextStyle(
                               color: Color.fromARGB(255, 212, 212, 212),
                               fontWeight: FontWeight.bold),

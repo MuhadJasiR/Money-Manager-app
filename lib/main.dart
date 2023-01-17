@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:money_manager_app/db/category_db.dart';
+import 'package:money_manager_app/db/transacrtion_model.dart';
+import 'package:money_manager_app/intro_page/login_page.dart';
 import 'package:money_manager_app/models/category_modal.dart';
 import 'package:money_manager_app/screens/splash_screen.dart';
 
 Future<void> main() async {
-  final obj1 = CategoryDB();
-  final obj2 = CategoryDB();
-  // print("object compairing");
-  // print(obj1 == obj2);
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(CategoryTypeAdapter().typeId)) {
@@ -17,6 +14,10 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(CategoryModelAdapter().typeId)) {
     Hive.registerAdapter(CategoryModelAdapter());
   }
+  if (!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)) {
+    Hive.registerAdapter(TransactionModelAdapter());
+  }
+
   runApp(const MyApp());
 }
 

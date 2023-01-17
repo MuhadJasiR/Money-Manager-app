@@ -100,7 +100,7 @@ class _FlippingContainerState extends State<FlippingContainer> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(18.0),
-          child: Text("iam Muhammed Jasir ali"),
+          child: Text("Coming soon.."),
         ),
       ),
     );
