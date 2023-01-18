@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:money_manager_app/intro_page/intro_page2.dart';
 
 class IntroPage1 extends StatelessWidget {
   const IntroPage1({super.key});

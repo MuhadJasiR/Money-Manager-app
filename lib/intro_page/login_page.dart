@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/widgets/bottom_navigation_bar.dart';
 
+final _nameTextcontroller = TextEditingController();
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -11,8 +13,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _nameTextcontroller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

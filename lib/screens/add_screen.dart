@@ -3,9 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/category_db.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
+import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
 
 List<Widget> transactionType = <Widget>[Text("INCOME"), Text("EXPENSE")];
+final List<bool> _selectTranscationType = <bool>[true, false];
+bool vertical = false;
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({super.key});
@@ -29,9 +32,6 @@ class _AddTransactionState extends State<AddTransaction> {
     _selectedCategoryType = CategoryType.income;
     super.initState();
   }
-
-  final List<bool> _selectTranscationType = <bool>[false, false];
-  bool vertical = false;
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +232,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                     icon: Icon(Icons.calendar_today),
                                     label: Text(_selectedDate == null
                                         ? "Select Date"
-                                        : _selectedDate!.toString())),
+                                        : parseDate(_selectedDate!))),
                               ),
                               SizedBox(
                                 height: 20,
@@ -242,6 +242,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                 child: ElevatedButton(
                                     onPressed: () {
                                       addTransaction();
+                                      print("added Transaction");
                                     },
                                     child: Text("Add")),
                               ),
@@ -280,12 +281,21 @@ class _AddTransactionState extends State<AddTransaction> {
     if (_selectedCategoryModel == null) {
       return;
     }
-    final _model = TransactionModel(
+    // ignore: unused_local_variable
+    final model = TransactionModel(
       notes: notesText,
       amount: parseAmount,
       date: _selectedDate!,
-      type: selectedType,
+      type: _selectedCategoryType!,
       category: _selectedCategoryModel!,
     );
+
+    await TransactionDB.instance.addTransaction(model);
+    Navigator.of(context).pop();
+    TransactionDB.instance.refresh();
+  }
+
+  String parseDate(DateTime date) {
+    return "${date.day}-${date.month}-${date.year}";
   }
 }

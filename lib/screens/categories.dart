@@ -19,7 +19,6 @@ class _CategoriesState extends State<Categories>
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-
     CategoryDB().refreshUi();
 
     super.initState();

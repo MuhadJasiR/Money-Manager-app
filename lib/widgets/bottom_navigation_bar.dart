@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:money_manager_app/db/category_db.dart';
-import 'package:money_manager_app/models/category_modal.dart';
+import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/screens/add_screen.dart';
 import 'package:money_manager_app/screens/categories.dart';
 import 'package:money_manager_app/screens/finalcial_report.dart';
@@ -41,7 +40,6 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             if (currentTab == 0) {
-              print("add Transaction");
               Navigator.push(context, MaterialPageRoute(builder: ((context) {
                 return AddTransaction();
               })));
@@ -56,6 +54,7 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
               // CategoryDB().insertCategory(_sample);
             }
           },
+          // ignore: sort_child_properties_last
           child: Icon(Icons.add),
           backgroundColor: Color.fromARGB(255, 35, 43, 255),
         ),
@@ -63,6 +62,7 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
         bottomNavigationBar: BottomAppBar(
           shape: CircularNotchedRectangle(),
           notchMargin: 10,
+          // ignore: sized_box_for_whitespace
           child: Container(
             height: 60,
             child: Row(

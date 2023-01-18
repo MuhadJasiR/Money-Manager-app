@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/category_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
@@ -24,7 +26,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
               ),
             ),
             Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   children: [
                     RadioButton(title: "income", type: CategoryType.income),
@@ -55,6 +57,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
       });
 }
 
+// ignore: must_be_immutable
 class RadioButton extends StatelessWidget {
   final String title;
   final CategoryType type;
@@ -64,8 +67,6 @@ class RadioButton extends StatelessWidget {
     required this.title,
     required this.type,
   });
-
-  CategoryType? _type;
 
   @override
   Widget build(BuildContext context) {

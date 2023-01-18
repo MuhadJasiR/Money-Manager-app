@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:money_manager_app/intro_page/indro_page1.dart';
 import 'package:money_manager_app/intro_page/intro_page2.dart';
 import 'package:money_manager_app/intro_page/intro_page3.dart';
-import 'package:money_manager_app/intro_page/login_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class IntroductionScreen extends StatefulWidget {
@@ -33,7 +32,6 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               IntroPage1(),
               IntroPage2(),
               IntroPage3(),
-              LoginPage(),
             ],
           ),
           Container(

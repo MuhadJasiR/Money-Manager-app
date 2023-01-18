@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
-import 'package:money_manager_app/intro_page/login_page.dart';
 import 'package:money_manager_app/models/category_modal.dart';
 import 'package:money_manager_app/screens/splash_screen.dart';
 

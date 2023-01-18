@@ -34,60 +34,63 @@ class _FlippingContainerState extends State<FlippingContainer> {
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
           height: 210,
           width: 360,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  Column(
-                    children: const [
-                      Icon(
-                        Icons.monetization_on_outlined,
-                        color: Colors.white,
-                        size: 85,
-                      ),
-                      Text(
-                        "Income",
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "25000",
-                        style: TextStyle(
-                            fontSize: 40,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                children: const [
-                  Icon(
-                    Icons.monetization_on_outlined,
-                    color: Colors.white,
-                    size: 85,
-                  ),
-                  Text(
-                    "Expenses",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "11200",
-                    style: TextStyle(
-                        fontSize: 40,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.only(top: 25),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Column(
+                      children: const [
+                        Icon(
+                          Icons.monetization_on_outlined,
+                          color: Colors.white,
+                          size: 75,
+                        ),
+                        Text(
+                          "Income",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "25000",
+                          style: TextStyle(
+                              fontSize: 40,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  children: const [
+                    Icon(
+                      Icons.monetization_on_outlined,
+                      color: Colors.white,
+                      size: 75,
+                    ),
+                    Text(
+                      "Expenses",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "11200",
+                      style: TextStyle(
+                          fontSize: 40,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -63,4 +63,5 @@ Future checkFirstScreen(context) async {
       return IntroductionScreen();
     }));
   }
+  // prefs.clear();
 }
