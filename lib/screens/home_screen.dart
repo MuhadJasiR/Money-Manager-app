@@ -19,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String? passedCategoryValue;
   @override
   Widget build(BuildContext context) {
     TransactionDB.instance.refresh();
@@ -70,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       children: const [
                         Text(
-                          "Total Amount",
+                          "Total Balance",
                           style: TextStyle(
                               color: Color.fromARGB(255, 212, 212, 212),
                               fontWeight: FontWeight.bold,
@@ -127,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     builder: (BuildContext ctx, List<TransactionModel> newList,
                         Widget? _) {
                       return ListView.builder(
-                          itemCount: newList.length,
+                          itemCount: newList.length > 5 ? 5 : newList.length,
                           itemBuilder: (context, index) {
                             final _value = newList[index];
                             return Slidable(
@@ -184,7 +185,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   Card(
                                     child: ListTile(
-                                      leading: _value == CategoryType.income
+                                      leading: _value.category.type ==
+                                              CategoryType.income
                                           ? Icon(
                                               Icons.arrow_upward,
                                               color: Colors.blue,
@@ -224,6 +226,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   String parseDate(DateTime date) {
+    return "${date.day}-${date.month}-${date.year}";
+  }
+
+  String parseTopDate(DateTime date) {
     return "${date.day}-${date.month}-${date.year}";
   }
 }

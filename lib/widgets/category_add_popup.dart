@@ -9,6 +9,7 @@ ValueNotifier<CategoryType> selectedCategoryNotifier =
 
 Future<void> showCategoryAddPopup(BuildContext context) async {
   final _nameEditingController = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
   showDialog(
       context: context,
       builder: (ctx) {
@@ -17,11 +18,19 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: TextFormField(
-                controller: _nameEditingController,
-                decoration: const InputDecoration(
-                  hintText: "Select Category",
-                  border: OutlineInputBorder(),
+              child: Form(
+                key: _formkey,
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null) {
+                      return "Please select a category";
+                    }
+                  },
+                  controller: _nameEditingController,
+                  decoration: const InputDecoration(
+                    label: Text("add Category"),
+                    border: OutlineInputBorder(),
+                  ),
                 ),
               ),
             ),
@@ -38,15 +47,17 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
               child: ElevatedButton(
                 onPressed: () {
                   final _name = _nameEditingController.text.trim();
-                  validator:
-                  (_name) {
-                    if (_name == null || _name.isEmpty) {
-                      return "Catergory required";
-                    } else {
-                      return null;
-                    }
-                  };
+                  if (_formkey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          duration: Duration(milliseconds: 800),
+                          content: Text('Category added')),
+                    );
+                  }
 
+                  if (_name.isEmpty) {
+                    return null;
+                  }
                   final _type = selectedCategoryNotifier.value;
                   final _category = CategoryModel(
                       id: DateTime.now().millisecondsSinceEpoch.toString(),

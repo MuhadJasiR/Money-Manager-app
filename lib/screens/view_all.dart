@@ -5,6 +5,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
 import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
+import 'package:money_manager_app/widgets/filtration.dart';
 
 class ViewListScreen extends StatefulWidget {
   const ViewListScreen({super.key});
@@ -31,26 +32,7 @@ class _ViewListScreenState extends State<ViewListScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-              onPressed: () {
-                PopupMenuButton(
-                  itemBuilder: ((context) => [
-                        PopupMenuItem(
-                          child: Text("All"),
-                        ),
-                        PopupMenuItem(
-                          child: Text("Today"),
-                        ),
-                        PopupMenuItem(
-                          child: Text("Week"),
-                        ),
-                        PopupMenuItem(
-                          child: Text("Month"),
-                        )
-                      ]),
-                );
-              },
-              icon: Icon(Icons.filter_list_sharp)),
+          FiltrationViewList(),
           IconButton(
               onPressed: () {
                 showDatePicker(
@@ -139,19 +121,19 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                   children: [
                                     Card(
                                       child: ListTile(
-                                        leading:
-                                            _value.type == CategoryType.income
-                                                ? Icon(
-                                                    Icons.arrow_upward,
-                                                    color: Colors.blue,
-                                                    size: 30,
-                                                  )
-                                                : Icon(
-                                                    Icons.arrow_downward,
-                                                    color: Color.fromARGB(
-                                                        255, 255, 0, 55),
-                                                    size: 30,
-                                                  ),
+                                        leading: _value.category.type ==
+                                                CategoryType.income
+                                            ? Icon(
+                                                Icons.arrow_upward,
+                                                color: Colors.blue,
+                                                size: 30,
+                                              )
+                                            : Icon(
+                                                Icons.arrow_downward,
+                                                color: Color.fromARGB(
+                                                    255, 255, 0, 55),
+                                                size: 30,
+                                              ),
                                         title: Text(
                                           _value.category.name,
                                           style: TextStyle(fontSize: 20),
