@@ -31,13 +31,34 @@ class IncomePageScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 120),
+                          padding: const EdgeInsets.only(left: 140),
                           child: IconButton(
                               onPressed: () {
-                                CategoryDB.instance.deleteCategoty(category.id);
+                                showDialog(
+                                    context: context,
+                                    builder: ((context) {
+                                      return AlertDialog(
+                                        content: Text("Do you want to delete"),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                CategoryDB.instance
+                                                    .deleteCategoty(
+                                                        category.id);
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text("Yes")),
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text("No"))
+                                        ],
+                                      );
+                                    }));
                               },
                               icon: Icon(
-                                Icons.dangerous_outlined,
+                                Icons.dangerous_sharp,
                                 color: Colors.red,
                                 size: 20,
                               )),

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:money_manager_app/db/category_db.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
 import 'package:money_manager_app/db/transaction_db.dart';
@@ -9,7 +10,9 @@ import 'package:money_manager_app/screens/flipping_container.dart';
 import 'package:money_manager_app/screens/view_all.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -67,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       children: const [
                         Text(
-                          "Account Balance",
+                          "Total Amount",
                           style: TextStyle(
                               color: Color.fromARGB(255, 212, 212, 212),
                               fontWeight: FontWeight.bold,
@@ -127,37 +130,88 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemCount: newList.length,
                           itemBuilder: (context, index) {
                             final _value = newList[index];
-                            return Column(
-                              children: [
-                                Card(
-                                  child: ListTile(
-                                    leading: _value.type == CategoryType.income
-                                        ? Icon(
-                                            Icons.arrow_upward,
-                                            color: Colors.blue,
-                                            size: 30,
-                                          )
-                                        : Icon(
-                                            Icons.arrow_downward,
-                                            color:
-                                                Color.fromARGB(255, 255, 0, 55),
-                                            size: 30,
-                                          ),
-                                    title: Text(
-                                      _value.category.name,
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                    subtitle: Text(parseDate(_value.date)),
-                                    trailing: Text(
-                                      " ${_value.amount}",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.black45,
-                                          fontWeight: FontWeight.w500),
+                            return Slidable(
+                              key: Key(_value.id!),
+                              startActionPane:
+                                  ActionPane(motion: BehindMotion(), children: [
+                                SlidableAction(
+                                  onPressed: (ctx) {
+                                    showDialog(
+                                        context: context,
+                                        builder: ((context) {
+                                          return AlertDialog(
+                                            content:
+                                                Text("DO you want to delete"),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () {
+                                                    TransactionDB.instance
+                                                        .deleteTransaction(
+                                                            _value.id!);
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text("Yes")),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text("No"))
+                                            ],
+                                          );
+                                        }));
+                                  },
+                                  backgroundColor:
+                                      Color.fromARGB(255, 239, 247, 255),
+                                  foregroundColor: Colors.red,
+                                  icon: Icons.delete_outlined,
+                                  label: "Delete",
+                                )
+                              ]),
+                              endActionPane:
+                                  ActionPane(motion: BehindMotion(), children: [
+                                SlidableAction(
+                                  onPressed: (ctx) {
+                                    TransactionDB.instance
+                                        .deleteTransaction(_value.id!);
+                                  },
+                                  backgroundColor:
+                                      Color.fromARGB(255, 239, 247, 255),
+                                  foregroundColor: Colors.blue,
+                                  icon: Icons.edit,
+                                )
+                              ]),
+                              child: Column(
+                                children: [
+                                  Card(
+                                    child: ListTile(
+                                      leading: _value == CategoryType.income
+                                          ? Icon(
+                                              Icons.arrow_upward,
+                                              color: Colors.blue,
+                                              size: 30,
+                                            )
+                                          : Icon(
+                                              Icons.arrow_downward,
+                                              color: Color.fromARGB(
+                                                  255, 255, 0, 55),
+                                              size: 30,
+                                            ),
+                                      title: Text(
+                                        _value.category.name,
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                      subtitle: Text(parseDate(_value.date)),
+                                      trailing: Text(
+                                        " ${_value.amount}",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.black45,
+                                            fontWeight: FontWeight.w500),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             );
                           });
                     },

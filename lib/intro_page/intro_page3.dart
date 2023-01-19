@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:money_manager_app/intro_page/login_page.dart';
 
 class IntroPage3 extends StatelessWidget {
   const IntroPage3({super.key});
@@ -37,16 +36,6 @@ class IntroPage3 extends StatelessWidget {
           SizedBox(
             height: 70,
           ),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (ctx) {
-                    return LoginPage();
-                  }),
-                );
-              },
-              child: Text("GET STARTED"))
         ],
       ),
     );

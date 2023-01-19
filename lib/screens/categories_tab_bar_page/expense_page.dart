@@ -31,19 +31,51 @@ class ExpenseScreenPage extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Text(
-                        category.name,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 255, 255, 255)),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 140,
+                        ),
+                        child: IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: ((context) {
+                                    return AlertDialog(
+                                      content: Text("Do you want to delete"),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              CategoryDB.instance
+                                                  .deleteCategoty(category.id);
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text("yes")),
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text("No"))
+                                      ],
+                                    );
+                                  }));
+                            },
+                            icon: Icon(
+                              Icons.dangerous_sharp,
+                              color: Colors.red,
+                              size: 20,
+                            )),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            CategoryDB.instance.deleteCategoty(category.id);
-                          },
-                          icon: Icon(Icons.delete))
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 11),
+                        child: Text(
+                          category.name,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                        ),
+                      ),
                     ],
                   ),
                   height: 20,

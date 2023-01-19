@@ -5,6 +5,7 @@ import 'package:money_manager_app/db/category_db.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
 import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
+import 'package:money_manager_app/widgets/category_add_popup.dart';
 
 List<Widget> transactionType = <Widget>[Text("INCOME"), Text("EXPENSE")];
 final List<bool> _selectTranscationType = <bool>[true, false];
@@ -128,20 +129,15 @@ class _AddTransactionState extends State<AddTransaction> {
                                     color: Color.fromARGB(255, 128, 128, 128)),
                               ),
                               SizedBox(height: 20),
-                              Container(
-                                height: 40,
-                                width: 350,
-                                child: TextField(
-                                  controller: _amountTextEditingController,
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                      fillColor: Colors.white,
-                                      hintText: "Enter Amount",
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      filled: true),
-                                ),
+                              TextField(
+                                controller: _amountTextEditingController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    isDense: true,
+                                    fillColor: Colors.white,
+                                    hintText: "Enter Amount",
+                                    border: OutlineInputBorder(),
+                                    filled: true),
                               ),
                               SizedBox(height: 20),
                               Text(
@@ -156,31 +152,54 @@ class _AddTransactionState extends State<AddTransaction> {
                               ),
                               Container(
                                 height: 40,
-                                child: DropdownButton(
-                                    hint: Text(
-                                        "                       Select Category                      "),
-                                    value: _categoryId,
-                                    items: (selectedType == 0
-                                            ? CategoryDB()
-                                                .incomeCategoryListListener
-                                            : CategoryDB()
-                                                .expenseCategoryListListener)
-                                        .value
-                                        .map((e) {
-                                      return DropdownMenuItem(
-                                        value: e.id,
-                                        child: Text(e.name),
-                                        onTap: () {
-                                          _selectedCategoryModel = e;
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border:
+                                            Border.all(color: Colors.black54),
+                                      ),
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButton(
+                                            borderRadius:
+                                                BorderRadius.circular(2),
+                                            hint: Text(
+                                                "                Select Category               "),
+                                            value: _categoryId,
+                                            items: (selectedType == 0
+                                                    ? CategoryDB()
+                                                        .incomeCategoryListListener
+                                                    : CategoryDB()
+                                                        .expenseCategoryListListener)
+                                                .value
+                                                .map((e) {
+                                              return DropdownMenuItem(
+                                                value: e.id,
+                                                child: Text(e.name),
+                                                onTap: () {
+                                                  _selectedCategoryModel = e;
+                                                },
+                                              );
+                                            }).toList(),
+                                            onChanged: (selectedValue) {
+                                              print(selectedValue);
+                                              setState(() {
+                                                _categoryId = selectedValue;
+                                              });
+                                            }),
+                                      ),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          showCategoryAddPopup(context);
                                         },
-                                      );
-                                    }).toList(),
-                                    onChanged: (selectedValue) {
-                                      print(selectedValue);
-                                      setState(() {
-                                        _categoryId = selectedValue;
-                                      });
-                                    }),
+                                        icon: Icon(
+                                          Icons.add_box_outlined,
+                                          color:
+                                              Color.fromARGB(255, 35, 45, 255),
+                                        ))
+                                  ],
+                                ),
                               ),
                               SizedBox(height: 20),
                               Text(
@@ -191,23 +210,19 @@ class _AddTransactionState extends State<AddTransaction> {
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromARGB(255, 128, 128, 128)),
                               ),
-                              SizedBox(height: 20),
-                              Container(
-                                height: 40,
-                                width: 350,
-                                child: TextField(
-                                  controller: _notesTextEditingController,
-                                  decoration: InputDecoration(
-                                      fillColor: Colors.white,
-                                      hintText: "Enter Notes",
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      filled: true),
-                                ),
+                              SizedBox(height: 10),
+                              TextField(
+                                keyboardType: TextInputType.multiline,
+                                controller: _notesTextEditingController,
+                                decoration: InputDecoration(
+                                    isDense: true,
+                                    fillColor: Colors.white,
+                                    hintText: "Enter Notes",
+                                    border: OutlineInputBorder(),
+                                    filled: true),
                               ),
                               SizedBox(
-                                height: 30,
+                                height: 20,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 100),
@@ -235,16 +250,26 @@ class _AddTransactionState extends State<AddTransaction> {
                                         : parseDate(_selectedDate!))),
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 10,
                               ),
-                              SizedBox(
-                                width: 500,
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      addTransaction();
-                                      print("added Transaction");
-                                    },
-                                    child: Text("Add")),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 72),
+                                child: Container(
+                                  width: 180,
+                                  child: ElevatedButton(
+                                      style: ButtonStyle(
+                                          shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)))),
+                                      onPressed: () {
+                                        addTransaction();
+                                        print("added Transaction");
+                                      },
+                                      child: Text("Add")),
+                                ),
                               ),
                             ],
                           ),

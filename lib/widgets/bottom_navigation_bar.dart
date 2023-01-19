@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/screens/add_screen.dart';
 import 'package:money_manager_app/screens/categories.dart';
 import 'package:money_manager_app/screens/finalcial_report.dart';
