@@ -38,9 +38,15 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
               child: ElevatedButton(
                 onPressed: () {
                   final _name = _nameEditingController.text.trim();
-                  if (_name.isEmpty) {
-                    return null;
-                  }
+                  validator:
+                  (_name) {
+                    if (_name == null || _name.isEmpty) {
+                      return "Catergory required";
+                    } else {
+                      return null;
+                    }
+                  };
+
                   final _type = selectedCategoryNotifier.value;
                   final _category = CategoryModel(
                       id: DateTime.now().millisecondsSinceEpoch.toString(),
