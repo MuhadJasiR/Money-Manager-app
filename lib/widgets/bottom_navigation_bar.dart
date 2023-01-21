@@ -9,7 +9,7 @@ import 'package:money_manager_app/screens/settings.dart';
 import 'package:money_manager_app/widgets/category_add_popup.dart';
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+  const BottomNavBar(BuildContext context, {super.key});
 
   @override
   State<BottomNavBar> createState() => _BottomNavigationBarState();

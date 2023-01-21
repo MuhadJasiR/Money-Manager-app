@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:money_manager_app/db/transacrtion_model.dart';
+import 'package:money_manager_app/models/category_modal.dart';
+import 'package:money_manager_app/screens/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -46,7 +51,31 @@ class SettingScreen extends StatelessWidget {
                                 Navigator.of(context).pop();
                               },
                               child: const Text("No")),
-                          TextButton(onPressed: () {}, child: const Text("Yes"))
+                          TextButton(
+                              onPressed: () async {
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+                                await prefs.clear();
+                                SharedPreferences tectcontrol =
+                                    await SharedPreferences.getInstance();
+                                await tectcontrol.clear();
+                                final transationDb =
+                                    await Hive.openBox<TransactionModel>(
+                                        'transaction-db');
+                                final categorydb =
+                                    await Hive.openBox<CategoryModel>(
+                                        'category-database');
+
+                                categorydb.clear();
+                                transationDb.clear();
+                                // ignore: use_build_context_synchronously
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => const SplashScreen(),
+                                  ),
+                                );
+                              },
+                              child: const Text("Yes"))
                         ],
                       );
                     });

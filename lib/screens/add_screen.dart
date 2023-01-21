@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, sized_box_for_whitespace, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:money_manager_app/db/category_db.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
 import 'package:money_manager_app/db/transaction_db.dart';
@@ -384,6 +385,6 @@ class _AddTransactionState extends State<AddTransaction> {
   }
 
   String parseDate(DateTime date) {
-    return "${date.day}-${date.month}-${date.year}";
+    return DateFormat.MMMEd().format(date);
   }
 }

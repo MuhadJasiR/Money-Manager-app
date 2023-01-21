@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/widgets/bottom_navigation_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final _nameTextcontroller = TextEditingController();
 
@@ -41,13 +42,15 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
                 width: 100,
                 child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (ctx) {
-                          return BottomNavBar();
-                        }),
-                      );
+                    onPressed: () async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setBool("seen", true);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => BottomNavBar(context))),
+                          (route) => false);
                     },
                     child: Text("Login")))
           ],
