@@ -332,7 +332,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                                     duration: Duration(
                                                         milliseconds: 500),
                                                     content: Text(
-                                                        "Transaction added")));
+                                                        "Transaction edited")));
                                           }
                                         },
                                         child: Text("Update")),
@@ -381,6 +381,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
       date: _selectedDate!,
       type: _selectedCategoryType!,
       category: _selectedCategoryModel!,
+      id: widget.obj.id,
     );
 
     await TransactionDB.instance.updateTransactionModel(model);

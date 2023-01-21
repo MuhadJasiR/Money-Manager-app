@@ -20,5 +20,5 @@ totalIncomeExpenses() {
       expenseTotal.value = expenseTotal.value + value[i].amount;
     }
   }
-  totalAmount.value = incomeTotal.value + expenseTotal.value;
+  totalAmount.value = incomeTotal.value - expenseTotal.value;
 }

@@ -39,7 +39,15 @@ class SettingScreen extends StatelessWidget {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        content: Text("Are you sure to Reset"),
+                        content: const Text("Are you sure to Reset"),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("No")),
+                          TextButton(onPressed: () {}, child: const Text("Yes"))
+                        ],
                       );
                     });
               },

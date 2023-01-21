@@ -96,10 +96,9 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                                         child: Text("No")),
                                                     TextButton(
                                                         onPressed: () {
-                                                          _value.delete();
-                                                          // TransactionDB.instance
-                                                          //     .deleteTransaction(
-                                                          //         _value);
+                                                          TransactionDB.instance
+                                                              .deleteTransaction(
+                                                                  _value);
                                                           Navigator.of(context)
                                                               .pop();
                                                         },

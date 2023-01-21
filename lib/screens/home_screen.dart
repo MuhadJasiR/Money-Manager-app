@@ -164,10 +164,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               TextButton(
                                                   onPressed: () {
                                                     print(_value.id);
-                                                    _value.delete();
-                                                    // TransactionDB.instance
-                                                    //     .deleteTransaction(
-                                                    //         _value);
+                                                    TransactionDB.instance
+                                                        .deleteTransaction(
+                                                            _value);
                                                     Navigator.of(context).pop();
                                                   },
                                                   child: Text("Yes")),

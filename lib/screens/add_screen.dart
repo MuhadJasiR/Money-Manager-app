@@ -236,7 +236,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                       color:
                                           Color.fromARGB(255, 128, 128, 128)),
                                 ),
-                                SizedBox(height: 10),
+                                SizedBox(height: 20),
                                 TextFormField(
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
@@ -244,11 +244,13 @@ class _AddTransactionState extends State<AddTransaction> {
                                     }
                                   },
                                   keyboardType: TextInputType.multiline,
+                                  maxLines: 3,
+                                  minLines: 3,
                                   controller: _notesTextEditingController,
                                   decoration: InputDecoration(
                                       isDense: true,
                                       fillColor: Colors.white,
-                                      label: Text("Enter Notes"),
+                                      hintText: "Enter Notes",
                                       border: OutlineInputBorder(),
                                       filled: true),
                                 ),
@@ -373,6 +375,7 @@ class _AddTransactionState extends State<AddTransaction> {
       date: _selectedDate!,
       type: _selectedCategoryType!,
       category: _selectedCategoryModel!,
+      id: DateTime.now().microsecondsSinceEpoch.toString(),
     );
 
     await TransactionDB.instance.addTransaction(model);
