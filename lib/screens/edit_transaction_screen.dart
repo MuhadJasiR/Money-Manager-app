@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, sized_box_for_whitespace, avoid_print
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/category_db.dart';
@@ -11,33 +11,41 @@ List<Widget> transactionType = <Widget>[Text("INCOME"), Text("EXPENSE")];
 final List<bool> _selectTranscationType = <bool>[true, false];
 bool vertical = false;
 
-class AddTransaction extends StatefulWidget {
-  const AddTransaction({super.key});
+class EditTransactionScreen extends StatefulWidget {
+  EditTransactionScreen({
+    super.key,
+    required this.obj,
+    required this.id,
+  });
+  String? id;
+  TransactionModel obj;
 
   @override
-  State<AddTransaction> createState() => _AddTransactionState();
+  State<EditTransactionScreen> createState() => _EditTransactionScreenState();
 }
 
-class _AddTransactionState extends State<AddTransaction> {
+class _EditTransactionScreenState extends State<EditTransactionScreen> {
   final _formkey = GlobalKey<FormState>();
   String _selectedDateMessages = '';
   String _selectedCategoryMessages = '';
   DateTime? _selectedDate;
   CategoryType? _selectedCategoryType;
   CategoryModel? _selectedCategoryModel;
-  final _notesTextEditingController = TextEditingController();
-  final _amountTextEditingController = TextEditingController();
+  TextEditingController _notesTextEditingController = TextEditingController();
+  TextEditingController _amountTextEditingController = TextEditingController();
+  String? _categoryId;
   // ignore: prefer_typing_uninitialized_variables
   var selectedType;
-  String? _categoryId;
-
   @override
   void initState() {
-    _selectedCategoryType = CategoryType.income;
     super.initState();
+    _amountTextEditingController =
+        TextEditingController(text: widget.obj.amount.toString());
+    _notesTextEditingController = TextEditingController(text: widget.obj.notes);
+    _selectedDate = widget.obj.date;
+    _selectedCategoryType = CategoryType.income;
   }
 
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -56,7 +64,7 @@ class _AddTransactionState extends State<AddTransaction> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 120, top: 50),
                 child: Text(
-                  "Add Transaction",
+                  "Edit Transaction",
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -318,7 +326,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                           }
                                           if (_formkey.currentState!
                                               .validate()) {
-                                            addTransaction();
+                                            editTransaction();
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(const SnackBar(
                                                     duration: Duration(
@@ -327,7 +335,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                                         "Transaction added")));
                                           }
                                         },
-                                        child: Text("Add")),
+                                        child: Text("Update")),
                                   ),
                                 ),
                               ],
@@ -346,7 +354,7 @@ class _AddTransactionState extends State<AddTransaction> {
     );
   }
 
-  Future<void> addTransaction() async {
+  Future<void> editTransaction() async {
     final notesText = _notesTextEditingController.text;
     final amountText = _amountTextEditingController.text;
 
@@ -375,7 +383,7 @@ class _AddTransactionState extends State<AddTransaction> {
       category: _selectedCategoryModel!,
     );
 
-    await TransactionDB.instance.addTransaction(model);
+    await TransactionDB.instance.updateTransactionModel(model);
     Navigator.of(context).pop();
     TransactionDB.instance.refresh();
   }

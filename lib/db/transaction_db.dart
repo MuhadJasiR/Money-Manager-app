@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
+import 'package:money_manager_app/widgets/total_income_calculation.dart';
 
 // ignore: constant_identifier_names
 const TRANSACTION_DB_NAME = 'transaction-database';
@@ -10,7 +11,8 @@ const TRANSACTION_DB_NAME = 'transaction-database';
 abstract class TransactionDBfunctions {
   Future<void> addTransaction(TransactionModel obj);
   Future<List<TransactionModel>> getAllTransaction();
-  Future<void> deleteTransaction(String id);
+  Future<void> deleteTransaction(TransactionModel obj);
+  Future<void> updateTransactionModel(TransactionModel value);
 }
 
 class TransactionDB implements TransactionDBfunctions {
@@ -36,6 +38,7 @@ class TransactionDB implements TransactionDBfunctions {
     _list.sort(((first, second) => second.date.compareTo(first.date)));
     transactionListNotifier.value.clear();
     transactionListNotifier.value.addAll(_list);
+    totalIncomeExpenses();
     transactionListNotifier.notifyListeners();
   }
 
@@ -46,9 +49,21 @@ class TransactionDB implements TransactionDBfunctions {
   }
 
   @override
-  Future<void> deleteTransaction(String id) async {
+  Future<void> deleteTransaction(TransactionModel obj) async {
+    print(obj.amount);
     final _db = await Hive.openBox<TransactionModel>(TRANSACTION_DB_NAME);
-    await _db.delete(id);
+    print(obj.id);
+
+    await _db.delete(obj.id);
+    print("asd");
+
+    refresh();
+  }
+
+  @override
+  Future<void> updateTransactionModel(TransactionModel value) async {
+    final _db = await Hive.openBox<TransactionModel>(TRANSACTION_DB_NAME);
+    await _db.put(value.id, value);
     refresh();
   }
 }

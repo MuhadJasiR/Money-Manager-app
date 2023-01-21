@@ -6,8 +6,10 @@ import 'package:money_manager_app/db/category_db.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
 import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
+import 'package:money_manager_app/screens/edit_transaction_screen.dart';
 import 'package:money_manager_app/screens/flipping_container.dart';
 import 'package:money_manager_app/screens/view_all.dart';
+import 'package:money_manager_app/widgets/total_income_calculation.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -24,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     TransactionDB.instance.refresh();
     CategoryDB.instance.refreshUi();
+    totalIncomeExpenses();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 239, 247, 255),
@@ -69,24 +72,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     left: 115,
                     top: 70,
                     child: Column(
-                      children: const [
-                        Text(
-                          "Total Balance",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 212, 212, 212),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30),
+                          child: Text(
+                            "Total Balance",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 212, 212, 212),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
                         ),
                         SizedBox(
                           height: 5,
                         ),
-                        Text(
-                          "\u{20B9} ${9400.0}",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 255, 255, 255),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 40),
-                        )
+                        ValueListenableBuilder(
+                            valueListenable: totalAmount,
+                            builder: ((context, value, _) {
+                              return Text(
+                                "\u{20B9} ${totalAmount.value}",
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 40),
+                              );
+                            }))
                       ],
                     ),
                   ),
@@ -127,16 +137,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         TransactionDB.instance.transactionListNotifier,
                     builder: (BuildContext ctx, List<TransactionModel> newList,
                         Widget? _) {
+                      TransactionDB.instance.refresh();
                       return ListView.builder(
                           itemCount: newList.length > 5 ? 5 : newList.length,
                           itemBuilder: (context, index) {
                             final _value = newList[index];
+
                             return Slidable(
                               key: Key(_value.id!),
                               startActionPane:
                                   ActionPane(motion: BehindMotion(), children: [
                                 SlidableAction(
-                                  onPressed: (ctx) {
+                                  onPressed: (context) {
                                     showDialog(
                                         context: context,
                                         builder: ((context) {
@@ -146,17 +158,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                             actions: [
                                               TextButton(
                                                   onPressed: () {
-                                                    TransactionDB.instance
-                                                        .deleteTransaction(
-                                                            _value.id!);
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text("No")),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    print(_value.id);
+                                                    _value.delete();
+                                                    // TransactionDB.instance
+                                                    //     .deleteTransaction(
+                                                    //         _value);
                                                     Navigator.of(context).pop();
                                                   },
                                                   child: Text("Yes")),
-                                              TextButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: Text("No"))
                                             ],
                                           );
                                         }));
@@ -172,8 +186,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ActionPane(motion: BehindMotion(), children: [
                                 SlidableAction(
                                   onPressed: (ctx) {
-                                    TransactionDB.instance
-                                        .deleteTransaction(_value.id!);
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: ((context) {
+                                      return EditTransactionScreen(
+                                        obj: _value,
+                                        id: _value.id,
+                                      );
+                                    })));
                                   },
                                   backgroundColor:
                                       Color.fromARGB(255, 239, 247, 255),

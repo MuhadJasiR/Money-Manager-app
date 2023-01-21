@@ -4,7 +4,7 @@ import 'package:money_manager_app/models/category_modal.dart';
 part 'transacrtion_model.g.dart';
 
 @HiveType(typeId: 3)
-class TransactionModel {
+class TransactionModel extends HiveObject {
   @HiveField(0)
   final String notes;
 
@@ -30,5 +30,6 @@ class TransactionModel {
     required this.category,
   }) {
     id = DateTime.now().microsecondsSinceEpoch.toString();
+    print(id);
   }
 }

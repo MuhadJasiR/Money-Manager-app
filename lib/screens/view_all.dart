@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
 import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
+import 'package:money_manager_app/screens/edit_transaction_screen.dart';
 import 'package:money_manager_app/widgets/filtration.dart';
 
 class ViewListScreen extends StatefulWidget {
@@ -30,6 +32,7 @@ class _ViewListScreenState extends State<ViewListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         actions: [
           FiltrationViewList(),
@@ -87,19 +90,20 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                                   actions: [
                                                     TextButton(
                                                         onPressed: () {
-                                                          TransactionDB.instance
-                                                              .deleteTransaction(
-                                                                  _value.id!);
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: Text("No")),
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          _value.delete();
+                                                          // TransactionDB.instance
+                                                          //     .deleteTransaction(
+                                                          //         _value);
                                                           Navigator.of(context)
                                                               .pop();
                                                         },
                                                         child: Text("Yes")),
-                                                    TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child: Text("No"))
                                                   ],
                                                 );
                                               }));
@@ -113,7 +117,16 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                     motion: BehindMotion(),
                                     children: [
                                       SlidableAction(
-                                        onPressed: (ctx) {},
+                                        onPressed: (ctx) {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                                  builder: ((context) {
+                                            return EditTransactionScreen(
+                                              obj: _value,
+                                              id: _value.id,
+                                            );
+                                          })));
+                                        },
                                         icon: Icons.edit,
                                       )
                                     ]),

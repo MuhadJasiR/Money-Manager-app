@@ -3,6 +3,7 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:money_manager_app/widgets/total_income_calculation.dart';
 
 class FlippingContainer extends StatefulWidget {
   const FlippingContainer({super.key});
@@ -42,7 +43,7 @@ class _FlippingContainerState extends State<FlippingContainer> {
                 Column(
                   children: [
                     Column(
-                      children: const [
+                      children: [
                         Icon(
                           Icons.monetization_on_outlined,
                           color: Colors.white,
@@ -55,19 +56,23 @@ class _FlippingContainerState extends State<FlippingContainer> {
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          "25000",
-                          style: TextStyle(
-                              fontSize: 40,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        )
+                        ValueListenableBuilder(
+                            valueListenable: incomeTotal,
+                            builder: ((context, value, _) {
+                              return Text(
+                                incomeTotal.value.toString(),
+                                style: TextStyle(
+                                    fontSize: 40,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              );
+                            }))
                       ],
                     ),
                   ],
                 ),
                 Column(
-                  children: const [
+                  children: [
                     Icon(
                       Icons.monetization_on_outlined,
                       color: Colors.white,
@@ -80,13 +85,17 @@ class _FlippingContainerState extends State<FlippingContainer> {
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
-                    Text(
-                      "11200",
-                      style: TextStyle(
-                          fontSize: 40,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    )
+                    ValueListenableBuilder(
+                        valueListenable: expenseTotal,
+                        builder: ((context, value, _) {
+                          return Text(
+                            expenseTotal.value.toString(),
+                            style: TextStyle(
+                                fontSize: 40,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          );
+                        }))
                   ],
                 ),
               ],
