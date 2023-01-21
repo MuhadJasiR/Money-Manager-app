@@ -34,7 +34,15 @@ class SettingScreen extends StatelessWidget {
               title: const Text("Privacy & policy"),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text("Are you sure to Reset"),
+                      );
+                    });
+              },
               leading: const Icon(Icons.restore_page_outlined,
                   color: Color.fromARGB(255, 45, 140, 255)),
               title: const Text("Reset app"),
