@@ -33,9 +33,8 @@ class _ViewListScreenState extends State<ViewListScreen> {
       result = _allUsers;
     } else {
       result = _allUsers
-          .where((element) => element[]
-              .toString()
-              .contains(enteredKeyword.toLowerCase()))
+          .where((element) =>
+              element.category.name.contains(enteredKeyword.toLowerCase()))
           .toList();
     }
 
@@ -47,7 +46,8 @@ class _ViewListScreenState extends State<ViewListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         actions: [
           FiltrationViewList(),
@@ -85,11 +85,11 @@ class _ViewListScreenState extends State<ViewListScreen> {
                       TransactionDB.instance.transactionListNotifier,
                   builder: (BuildContext ctx, List<TransactionModel> newList,
                       Widget? _) {
-                    return newList.isNotEmpty
+                    return _foundUsers.isNotEmpty
                         ? ListView.builder(
-                            itemCount: newList.length,
+                            itemCount: _foundUsers.length,
                             itemBuilder: (context, index) {
-                              final _value = newList[index];
+                              final _value = _foundUsers[index];
                               if (_value.id != null) {
                                 return Slidable(
                                   key: Key(_value.id!),
@@ -190,10 +190,17 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                   ),
                                 );
                               } else {
-                                return Column();
+                                return Text("Value is null");
                               }
                             })
-                        : Text("No result found");
+                        : Padding(
+                            padding: const EdgeInsets.only(top: 50),
+                            child: Column(
+                              children: [
+                                Image.asset("asset/126320-empty-box3.gif"),
+                              ],
+                            ),
+                          );
                   },
                 )),
           ),

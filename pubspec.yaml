@@ -64,6 +64,8 @@ flutter:
     - asset/9888-money-money-money.gif
     - asset/90507-money-saving.gif
     - asset/93344-money-investment.gif
+    - asset/126320-empty-box3.gif
+    - asset/126320-empty-box3-unscreen.gif
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

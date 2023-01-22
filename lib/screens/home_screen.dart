@@ -139,109 +139,128 @@ class _HomeScreenState extends State<HomeScreen> {
                     builder: (BuildContext ctx, List<TransactionModel> newList,
                         Widget? _) {
                       TransactionDB.instance.refresh();
-                      return ListView.builder(
-                          itemCount: newList.length > 5 ? 5 : newList.length,
-                          itemBuilder: (context, index) {
-                            final _value = newList[index];
-                            if (_value.id != null) {
-                              return Slidable(
-                                key: Key(_value.id!),
-                                startActionPane: ActionPane(
-                                    motion: BehindMotion(),
-                                    children: [
-                                      SlidableAction(
-                                        onPressed: (context) {
-                                          showDialog(
-                                              context: context,
-                                              builder: ((context) {
-                                                return AlertDialog(
-                                                  content: Text(
-                                                      "DO you want to delete"),
-                                                  actions: [
-                                                    TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child: Text("No")),
-                                                    TextButton(
-                                                        onPressed: () {
-                                                          TransactionDB.instance
-                                                              .deleteTransaction(
-                                                                  _value);
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child: Text("Yes")),
-                                                  ],
-                                                );
-                                              }));
-                                        },
-                                        backgroundColor:
-                                            Color.fromARGB(255, 239, 247, 255),
-                                        foregroundColor: Colors.red,
-                                        icon: Icons.delete_outlined,
-                                        label: "Delete",
-                                      )
-                                    ]),
-                                endActionPane: ActionPane(
-                                    motion: BehindMotion(),
-                                    children: [
-                                      SlidableAction(
-                                        onPressed: (ctx) {
-                                          Navigator.push(context,
-                                              MaterialPageRoute(
+                      return newList.isNotEmpty
+                          ? ListView.builder(
+                              itemCount:
+                                  newList.length > 5 ? 5 : newList.length,
+                              itemBuilder: (context, index) {
+                                final _value = newList[index];
+                                if (_value.id != null) {
+                                  return Slidable(
+                                    key: Key(_value.id!),
+                                    startActionPane: ActionPane(
+                                        motion: BehindMotion(),
+                                        children: [
+                                          SlidableAction(
+                                            onPressed: (context) {
+                                              showDialog(
+                                                  context: context,
                                                   builder: ((context) {
-                                            return EditTransactionScreen(
-                                              obj: _value,
-                                              id: _value.id,
-                                            );
-                                          })));
-                                        },
-                                        backgroundColor:
-                                            Color.fromARGB(255, 239, 247, 255),
-                                        foregroundColor: Colors.blue,
-                                        icon: Icons.edit,
-                                      )
-                                    ]),
-                                child: Column(
-                                  children: [
-                                    Card(
-                                      child: ListTile(
-                                        leading: _value.category.type ==
-                                                CategoryType.income
-                                            ? Icon(
-                                                Icons.arrow_upward,
-                                                color: Colors.blue,
-                                                size: 30,
-                                              )
-                                            : Icon(
-                                                Icons.arrow_downward,
-                                                color: Color.fromARGB(
-                                                    255, 255, 0, 55),
-                                                size: 30,
-                                              ),
-                                        title: Text(
-                                          _value.category.name,
-                                          style: TextStyle(fontSize: 20),
+                                                    return AlertDialog(
+                                                      content: Text(
+                                                          "DO you want to delete"),
+                                                      actions: [
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child: Text("No")),
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              TransactionDB
+                                                                  .instance
+                                                                  .deleteTransaction(
+                                                                      _value);
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child: Text("Yes")),
+                                                      ],
+                                                    );
+                                                  }));
+                                            },
+                                            backgroundColor: Color.fromARGB(
+                                                255, 239, 247, 255),
+                                            foregroundColor: Colors.red,
+                                            icon: Icons.delete_outlined,
+                                            label: "Delete",
+                                          )
+                                        ]),
+                                    endActionPane: ActionPane(
+                                        motion: BehindMotion(),
+                                        children: [
+                                          SlidableAction(
+                                            onPressed: (ctx) {
+                                              Navigator.push(context,
+                                                  MaterialPageRoute(
+                                                      builder: ((context) {
+                                                return EditTransactionScreen(
+                                                  obj: _value,
+                                                  id: _value.id,
+                                                );
+                                              })));
+                                            },
+                                            backgroundColor: Color.fromARGB(
+                                                255, 239, 247, 255),
+                                            foregroundColor: Colors.blue,
+                                            icon: Icons.edit,
+                                          )
+                                        ]),
+                                    child: Column(
+                                      children: [
+                                        Card(
+                                          child: ListTile(
+                                            leading: _value.category.type ==
+                                                    CategoryType.income
+                                                ? Icon(
+                                                    Icons.arrow_upward,
+                                                    color: Colors.blue,
+                                                    size: 30,
+                                                  )
+                                                : Icon(
+                                                    Icons.arrow_downward,
+                                                    color: Color.fromARGB(
+                                                        255, 255, 0, 55),
+                                                    size: 30,
+                                                  ),
+                                            title: Text(
+                                              _value.category.name,
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                            subtitle:
+                                                Text(parseDate(_value.date)),
+                                            trailing: Text(
+                                              " ${_value.amount}",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.black45,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                          ),
                                         ),
-                                        subtitle: Text(parseDate(_value.date)),
-                                        trailing: Text(
-                                          " ${_value.amount}",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black45,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
+                                  );
+                                } else {
+                                  return Column(
+                                    children: const [Text("Value id null")],
+                                  );
+                                }
+                              })
+                          : Column(
+                              children: [
+                                SizedBox(
+                                  height: 210,
+                                  width: double.infinity,
+                                  child: Image.asset(
+                                    "asset/126320-empty-box3-unscreen.gif",
+                                  ),
                                 ),
-                              );
-                            } else {
-                              return Column();
-                            }
-                          });
+                              ],
+                            );
                     },
                   )),
             )

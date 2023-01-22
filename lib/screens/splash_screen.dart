@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:money_manager_app/screens/home_screen.dart';
 import 'package:money_manager_app/screens/introduction_screen.dart';
 import 'package:money_manager_app/widgets/bottom_navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
