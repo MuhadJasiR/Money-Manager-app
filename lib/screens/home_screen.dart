@@ -21,8 +21,23 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+String username = '';
+
 class _HomeScreenState extends State<HomeScreen> {
-  String? passedCategoryValue;
+  // void initState() {
+  //   autoLogIn();
+  //   super.initState();
+  // }
+
+  // void autoLogIn() async {
+  //   WidgetsFlutterBinding.ensureInitialized();
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     username = prefs.getString('nameKey').toString();
+  //   });
+  // }
+  // String? passedCategoryValue;
+
   @override
   Widget build(BuildContext context) {
     TransactionDB.instance.refresh();
@@ -61,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                         padding: EdgeInsets.only(left: 200),
                         child: Text(
-                          "Jasir Ali ",
+                          username,
                           style: TextStyle(
                               color: Color.fromARGB(255, 212, 212, 212),
                               fontWeight: FontWeight.bold),

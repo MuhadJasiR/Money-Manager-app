@@ -6,7 +6,6 @@ import 'package:money_manager_app/db/transacrtion_model.dart';
 import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
 import 'package:money_manager_app/screens/edit_transaction_screen.dart';
-import 'package:money_manager_app/widgets/filtration.dart';
 
 class ViewListScreen extends StatefulWidget {
   const ViewListScreen({super.key});
@@ -16,13 +15,13 @@ class ViewListScreen extends StatefulWidget {
 }
 
 class _ViewListScreenState extends State<ViewListScreen> {
-  final List<TransactionModel> _allUsers =
-      TransactionDB.instance.transactionListNotifier.value;
+  ValueNotifier<List<TransactionModel>> allUsers =
+      ValueNotifier(TransactionDB.instance.transactionListNotifier.value);
   List<TransactionModel> _foundUsers = [];
 
   @override
   void initState() {
-    _foundUsers = _allUsers;
+    _foundUsers = allUsers.value;
     super.initState();
   }
 
@@ -30,9 +29,9 @@ class _ViewListScreenState extends State<ViewListScreen> {
     List<TransactionModel> result = [];
 
     if (enteredKeyword.isEmpty) {
-      result = _allUsers;
+      result = allUsers.value;
     } else {
-      result = _allUsers
+      result = allUsers.value
           .where((element) =>
               element.category.name.contains(enteredKeyword.toLowerCase()))
           .toList();
@@ -50,7 +49,8 @@ class _ViewListScreenState extends State<ViewListScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         actions: [
-          FiltrationViewList(),
+          // FiltrationViewList(),
+
           IconButton(
               onPressed: () {
                 showDatePicker(
@@ -61,6 +61,39 @@ class _ViewListScreenState extends State<ViewListScreen> {
                 );
               },
               icon: Icon(Icons.calendar_month_outlined)),
+
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Text("All"),
+                onTap: (() {
+                  allUsers.value =
+                      TransactionDB.instance.transactionListNotifier.value;
+                  _foundUsers = allUsers.value;
+                }),
+              ),
+              PopupMenuItem(
+                child: Text("Income"),
+                onTap: (() {
+                  allUsers.value = allUsers.value
+                      .where((element) =>
+                          element.category.type == CategoryType.income)
+                      .toList();
+                  _foundUsers = allUsers.value;
+                }),
+              ),
+              PopupMenuItem(
+                child: Text("Expense"),
+                onTap: (() {
+                  allUsers.value = allUsers.value
+                      .where((element) =>
+                          element.category.type == CategoryType.expense)
+                      .toList();
+                  _foundUsers = allUsers.value;
+                }),
+              ),
+            ],
+          )
         ],
       ),
       body: Column(
@@ -81,9 +114,8 @@ class _ViewListScreenState extends State<ViewListScreen> {
             child: Padding(
                 padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
                 child: ValueListenableBuilder(
-                  valueListenable:
-                      TransactionDB.instance.transactionListNotifier,
-                  builder: (BuildContext ctx, List<TransactionModel> newList,
+                  valueListenable: allUsers,
+                  builder: (BuildContext ctx, List<TransactionModel> allUsers,
                       Widget? _) {
                     return _foundUsers.isNotEmpty
                         ? ListView.builder(
