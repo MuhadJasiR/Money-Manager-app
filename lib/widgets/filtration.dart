@@ -1,55 +1,63 @@
+// ignore_for_file: sort_child_properties_last, prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:money_manager_app/db/transacrtion_model.dart';
+import 'package:money_manager_app/db/transaction_db.dart';
+
+ValueNotifier<List<TransactionModel>> dateFilterNotifier =
+    ValueNotifier(TransactionDB.instance.transactionListNotifier.value);
 
 class FiltrationViewList extends StatelessWidget {
   const FiltrationViewList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<int>(
-      shape: ContinuousRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          50,
+    return PopupMenuButton(
+      icon: Icon(Icons.filter_list_rounded),
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          child: Text("All"),
+          onTap: (() {
+            dateFilterNotifier.value =
+                TransactionDB.instance.transactionListNotifier.value;
+          }),
         ),
-      ),
-      child: const Padding(
-        padding: EdgeInsets.only(
-          right: 30.0,
+        PopupMenuItem(
+          child: Text("Today"),
+          onTap: (() {
+            dateFilterNotifier.value =
+                TransactionDB.instance.transactionListNotifier.value;
+            dateFilterNotifier.value = dateFilterNotifier.value
+                .where((element) =>
+                    element.date.day == DateTime.now().day &&
+                    element.date.month == DateTime.now().month &&
+                    element.date.year == DateTime.now().year)
+                .toList();
+          }),
         ),
-        child: Icon(
-          Icons.filter_list_rounded,
-          size: 30,
+        PopupMenuItem(
+          child: Text("Yesterday"),
+          onTap: (() {
+            dateFilterNotifier.value =
+                TransactionDB.instance.transactionListNotifier.value;
+            dateFilterNotifier.value = dateFilterNotifier.value
+                .where((element) =>
+                    element.date.day - 1 == DateTime.now().day - 1 &&
+                    element.date.month == DateTime.now().month &&
+                    element.date.year == DateTime.now().year)
+                .toList();
+          }),
         ),
-      ),
-      itemBuilder: (conext) => [
-        const PopupMenuItem(
-          value: 1,
-          child: Text(
-            "All",
-          ),
-        ),
-        const PopupMenuItem(
-          value: 2,
-          child: Text(
-            "Today",
-          ),
-        ),
-        const PopupMenuItem(
-          value: 2,
-          child: Text(
-            "Yesterday",
-          ),
-        ),
-        const PopupMenuItem(
-          value: 2,
-          child: Text(
-            "Week",
-          ),
-        ),
-        const PopupMenuItem(
-          value: 2,
-          child: Text(
-            "Month",
-          ),
+        PopupMenuItem(
+          child: Text("Month"),
+          onTap: (() {
+            dateFilterNotifier = TransactionDB.instance.transactionListNotifier;
+            dateFilterNotifier.value = dateFilterNotifier.value
+                .where((element) =>
+                    element.date.month == DateTime.now().month &&
+                    element.date.year == DateTime.now().year)
+                .toList();
+          }),
         ),
       ],
     );

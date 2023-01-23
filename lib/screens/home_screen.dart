@@ -21,23 +21,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-String username = '';
-
 class _HomeScreenState extends State<HomeScreen> {
-  // void initState() {
-  //   autoLogIn();
-  //   super.initState();
-  // }
-
-  // void autoLogIn() async {
-  //   WidgetsFlutterBinding.ensureInitialized();
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     username = prefs.getString('nameKey').toString();
-  //   });
-  // }
-  // String? passedCategoryValue;
-
   @override
   Widget build(BuildContext context) {
     TransactionDB.instance.refresh();
@@ -76,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                         padding: EdgeInsets.only(left: 200),
                         child: Text(
-                          username,
+                          "Jasir ALi",
                           style: TextStyle(
                               color: Color.fromARGB(255, 212, 212, 212),
                               fontWeight: FontWeight.bold),
@@ -268,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           : Column(
                               children: [
                                 SizedBox(
-                                  height: 210,
+                                  height: 250,
                                   width: double.infinity,
                                   child: Image.asset(
                                     "asset/126320-empty-box3-unscreen.gif",
@@ -286,7 +270,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   String parseDate(DateTime date) {
-    // return "${date.day}-${date.month}-${date.year}";
     return DateFormat.MMMd().format(date);
   }
 }

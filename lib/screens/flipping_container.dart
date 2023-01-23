@@ -45,7 +45,7 @@ class _FlippingContainerState extends State<FlippingContainer> {
                     Column(
                       children: [
                         Icon(
-                          Icons.monetization_on_outlined,
+                          Icons.arrow_circle_up_sharp,
                           color: Colors.white,
                           size: 75,
                         ),
@@ -74,7 +74,7 @@ class _FlippingContainerState extends State<FlippingContainer> {
                 Column(
                   children: [
                     Icon(
-                      Icons.monetization_on_outlined,
+                      Icons.arrow_circle_down,
                       color: Colors.white,
                       size: 75,
                     ),

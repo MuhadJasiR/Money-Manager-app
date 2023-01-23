@@ -6,6 +6,7 @@ import 'package:money_manager_app/db/transacrtion_model.dart';
 import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
 import 'package:money_manager_app/screens/edit_transaction_screen.dart';
+import 'package:money_manager_app/widgets/filtration.dart';
 
 class ViewListScreen extends StatefulWidget {
   const ViewListScreen({super.key});
@@ -32,8 +33,9 @@ class _ViewListScreenState extends State<ViewListScreen> {
       result = allUsers.value;
     } else {
       result = allUsers.value
-          .where((element) =>
-              element.category.name.contains(enteredKeyword.toLowerCase()))
+          .where((element) => element.category.name
+              .toLowerCase()
+              .contains(enteredKeyword.toLowerCase()))
           .toList();
     }
 
@@ -49,19 +51,7 @@ class _ViewListScreenState extends State<ViewListScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         actions: [
-          // FiltrationViewList(),
-
-          IconButton(
-              onPressed: () {
-                showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime.now().subtract(const Duration(days: 30)),
-                  lastDate: DateTime.now(),
-                );
-              },
-              icon: Icon(Icons.calendar_month_outlined)),
-
+          FiltrationViewList(),
           PopupMenuButton(
             itemBuilder: (context) => [
               PopupMenuItem(
@@ -114,9 +104,11 @@ class _ViewListScreenState extends State<ViewListScreen> {
             child: Padding(
                 padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
                 child: ValueListenableBuilder(
-                  valueListenable: allUsers,
+                  valueListenable:
+                      TransactionDB.instance.transactionListNotifier,
                   builder: (BuildContext ctx, List<TransactionModel> allUsers,
                       Widget? _) {
+                    TransactionDB.instance.refresh();
                     return _foundUsers.isNotEmpty
                         ? ListView.builder(
                             itemCount: _foundUsers.length,
