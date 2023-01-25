@@ -5,7 +5,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
 import 'package:money_manager_app/widgets/total_income_calculation.dart';
 
-// ignore: constant_identifier_names
 const TRANSACTION_DB_NAME = 'transaction-database';
 
 abstract class TransactionDBfunctions {
