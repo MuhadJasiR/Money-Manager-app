@@ -47,6 +47,7 @@ class _ViewListScreenState extends State<ViewListScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 35, 45, 255),
         actions: [
           FiltrationViewList(),
           PopupMenuButton(

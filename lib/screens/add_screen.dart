@@ -26,7 +26,6 @@ class _AddTransactionState extends State<AddTransaction> {
   DateTime? _selectedDate;
   CategoryType? _selectedCategoryType;
   CategoryModel? _selectedCategoryModel;
-  TextEditingController _textFieldDate = TextEditingController();
   final _notesTextEditingController = TextEditingController();
   final _amountTextEditingController = TextEditingController();
   // ignore: prefer_typing_uninitialized_variables
@@ -129,32 +128,6 @@ class _AddTransactionState extends State<AddTransaction> {
                                   ),
                                   SizedBox(height: 5),
                                   Text(
-                                    "Amount",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color:
-                                            Color.fromARGB(255, 128, 128, 128)),
-                                  ),
-                                  SizedBox(height: 15),
-                                  TextFormField(
-                                    // ignore: body_might_complete_normally_nullable
-                                    validator: ((value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Please enter amount";
-                                      }
-                                    }),
-                                    controller: _amountTextEditingController,
-                                    keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
-                                        isDense: true,
-                                        fillColor: Colors.white,
-                                        border: OutlineInputBorder(),
-                                        filled: true),
-                                  ),
-                                  SizedBox(height: 15),
-                                  Text(
                                     "Categories",
                                     style: TextStyle(
                                         fontSize: 15,
@@ -162,9 +135,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                         color:
                                             Color.fromARGB(255, 128, 128, 128)),
                                   ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
+                                  SizedBox(height: 15),
                                   Container(
                                     height: 40,
                                     child: Row(
@@ -218,14 +189,40 @@ class _AddTransactionState extends State<AddTransaction> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding:
+                                        const EdgeInsets.only(left: 8, top: 8),
                                     child: Text(
                                       _selectedCategoryMessages,
                                       style: TextStyle(
                                           fontSize: 12, color: Colors.red),
                                     ),
                                   ),
-
+                                  Text(
+                                    "Amount",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            Color.fromARGB(255, 128, 128, 128)),
+                                  ),
+                                  SizedBox(height: 15),
+                                  TextFormField(
+                                    // ignore: body_might_complete_normally_nullable
+                                    validator: ((value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Please enter amount";
+                                      }
+                                    }),
+                                    controller: _amountTextEditingController,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                        isDense: true,
+                                        fillColor: Colors.white,
+                                        border: OutlineInputBorder(),
+                                        filled: true),
+                                  ),
+                                  SizedBox(height: 15),
                                   Text(
                                     "Notes",
                                     textAlign: TextAlign.left,
@@ -255,9 +252,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                   SizedBox(
                                     height: 20,
                                   ),
-
                                   TextFormField(
-                                    controller: _textFieldDate,
                                     readOnly: true,
                                     onTap: () async {
                                       final selectedDateTemp =
@@ -283,48 +278,18 @@ class _AddTransactionState extends State<AddTransaction> {
                                         prefixIcon: Icon(Icons.calendar_month),
                                         isDense: true,
                                         fillColor: Colors.white,
-                                        // label: Text(_selectedDate == null
-                                        //     ? "Select Date"
-                                        //     : parseDate(_selectedDate!)),
                                         border: OutlineInputBorder(),
                                         filled: true),
                                   ),
-                                  // Padding(
-                                  //   padding: const EdgeInsets.only(left: 100),
-                                  //   child: TextButton.icon(
-                                  //       onPressed: () async {
-                                  //         final selectedDateTemp =
-                                  //             await showDatePicker(
-                                  //           context: context,
-                                  //           initialDate: DateTime.now(),
-                                  //           firstDate: DateTime.now().subtract(
-                                  //               const Duration(days: 30)),
-                                  //           lastDate: DateTime.now(),
-                                  //         );
-                                  //         if (selectedDateTemp == null) {
-                                  //           return;
-                                  //         } else {
-                                  //           setState(() {
-                                  //             _selectedDate = selectedDateTemp;
-                                  //           });
-                                  //         }
-                                  //       },
-                                  //       icon: Icon(Icons.calendar_today),
-                                  //       label: Text(_selectedDate == null
-                                  //           ? "Select Date"
-                                  //           : parseDate(_selectedDate!))),
-                                  // ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 111),
+                                    padding: const EdgeInsets.only(
+                                        left: 10, top: 9, bottom: 3),
                                     child: Text(
                                       _selectedDateMessages,
                                       style: TextStyle(
                                           color: Colors.red, fontSize: 12),
                                     ),
                                   ),
-                                  // SizedBox(
-                                  //   height: 10,
-                                  // ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 72),
                                     child: Container(

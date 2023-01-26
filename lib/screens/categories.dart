@@ -45,9 +45,13 @@ class _CategoriesState extends State<Categories>
                 color: Color.fromARGB(255, 35, 45, 255),
               ),
               child: TabBar(
+                unselectedLabelColor: Colors.white,
+                labelColor: Color.fromARGB(255, 35, 45, 255),
                 controller: _tabController,
-                indicator:
-                    BoxDecoration(borderRadius: BorderRadius.circular(25)),
+                indicatorWeight: 2,
+                indicator: BoxDecoration(
+                    color: Color.fromARGB(255, 149, 204, 255),
+                    borderRadius: BorderRadius.circular(20)),
                 tabs: const [
                   Tab(
                     text: "INCOME",

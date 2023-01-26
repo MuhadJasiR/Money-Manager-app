@@ -42,17 +42,17 @@ class IncomePageScreen extends StatelessWidget {
                                         actions: [
                                           TextButton(
                                               onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text("No")),
+                                          TextButton(
+                                              onPressed: () {
                                                 CategoryDB.instance
                                                     .deleteCategoty(
                                                         category.id);
                                                 Navigator.of(context).pop();
                                               },
                                               child: Text("Yes")),
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text("No"))
                                         ],
                                       );
                                     }));

@@ -59,12 +59,15 @@ class _FlippingContainerState extends State<FlippingContainer> {
                         ValueListenableBuilder(
                             valueListenable: incomeTotal,
                             builder: ((context, value, _) {
-                              return Text(
-                                incomeTotal.value.toString(),
-                                style: TextStyle(
-                                    fontSize: 40,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Text(
+                                  incomeTotal.value.toString(),
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               );
                             }))
                       ],
@@ -88,12 +91,15 @@ class _FlippingContainerState extends State<FlippingContainer> {
                     ValueListenableBuilder(
                         valueListenable: expenseTotal,
                         builder: ((context, value, _) {
-                          return Text(
-                            expenseTotal.value.toString(),
-                            style: TextStyle(
-                                fontSize: 40,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              expenseTotal.value.toString(),
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           );
                         }))
                   ],

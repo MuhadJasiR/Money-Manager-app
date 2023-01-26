@@ -41,25 +41,26 @@ class ExpenseScreenPage extends StatelessWidget {
                                   context: context,
                                   builder: ((context) {
                                     return AlertDialog(
-                                      content: Text("Do you want to delete"),
+                                      content:
+                                          const Text("Do you want to delete"),
                                       actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text("No")),
                                         TextButton(
                                             onPressed: () {
                                               CategoryDB.instance
                                                   .deleteCategoty(category.id);
                                               Navigator.of(context).pop();
                                             },
-                                            child: Text("yes")),
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text("No"))
+                                            child: const Text("yes")),
                                       ],
                                     );
                                   }));
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.dangerous_sharp,
                               color: Colors.red,
                               size: 20,
@@ -70,7 +71,7 @@ class ExpenseScreenPage extends StatelessWidget {
                         child: Text(
                           category.name,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 255, 255, 255)),
