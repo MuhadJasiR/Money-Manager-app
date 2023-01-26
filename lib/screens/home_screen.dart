@@ -129,6 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+
+            // Transaction list,
             Expanded(
               child: Padding(
                   padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
@@ -249,10 +251,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 }
                               })
+                          // image which will if there is transaction li
                           : Column(
                               children: [
                                 SizedBox(
-                                  height: 250,
+                                  height: 220,
                                   width: double.infinity,
                                   child: Image.asset(
                                     "asset/126320-empty-box3-unscreen.gif",

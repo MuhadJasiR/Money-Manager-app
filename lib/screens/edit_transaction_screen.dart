@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/category_db.dart';
@@ -44,6 +44,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
     _notesTextEditingController = TextEditingController(text: widget.obj.notes);
     _selectedDate = widget.obj.date;
     _selectedCategoryType = CategoryType.income;
+    // _categoryId = widget.obj.category.name;
   }
 
   @override

@@ -1,10 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/intro_page/indro_page1.dart';
 import 'package:money_manager_app/intro_page/intro_page2.dart';
 import 'package:money_manager_app/intro_page/intro_page3.dart';
 import 'package:money_manager_app/intro_page/login_page.dart';
+import 'package:money_manager_app/widgets/bottom_navigation_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class IntroductionScreen extends StatefulWidget {
@@ -41,13 +43,15 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             alignment: Alignment(0, 0.90),
             child: onLastPage
                 ? ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (ctx) {
-                          return LoginPage();
-                        }),
-                      );
+                    onPressed: () async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setBool("seen", true);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => BottomNavBar(context))),
+                          (route) => false);
                     },
                     child: Text("GET STARTED"))
                 : Row(
