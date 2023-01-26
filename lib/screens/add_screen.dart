@@ -26,6 +26,7 @@ class _AddTransactionState extends State<AddTransaction> {
   DateTime? _selectedDate;
   CategoryType? _selectedCategoryType;
   CategoryModel? _selectedCategoryModel;
+  TextEditingController _textFieldDate = TextEditingController();
   final _notesTextEditingController = TextEditingController();
   final _amountTextEditingController = TextEditingController();
   // ignore: prefer_typing_uninitialized_variables
@@ -42,7 +43,7 @@ class _AddTransactionState extends State<AddTransaction> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         body: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -65,40 +66,39 @@ class _AddTransactionState extends State<AddTransaction> {
                 ),
               ),
             ),
-            Positioned(
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
+            SingleChildScrollView(
+              child: Positioned(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 80),
-                  child: Container(
-                    decoration: BoxDecoration(),
-                    height: 630,
-                    width: double.infinity,
-                    child: Card(
-                      elevation: 5,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(15.0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 80),
+                    child: Container(
+                      decoration: BoxDecoration(),
+                      height: 630,
+                      width: double.infinity,
+                      child: Card(
+                        elevation: 5,
                         child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Form(
-                            key: _formkey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Transaction type",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color:
-                                          Color.fromARGB(255, 128, 128, 128)),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 70),
-                                  child: ToggleButtons(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Form(
+                              key: _formkey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Transaction type",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            Color.fromARGB(255, 128, 128, 128)),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  ToggleButtons(
                                     direction: vertical
                                         ? Axis.vertical
                                         : Axis.horizontal,
@@ -127,213 +127,246 @@ class _AddTransactionState extends State<AddTransaction> {
                                     children: transactionType,
                                     isSelected: _selectTranscationType,
                                   ),
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  "Amount",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color:
-                                          Color.fromARGB(255, 128, 128, 128)),
-                                ),
-                                SizedBox(height: 15),
-                                TextFormField(
-                                  // ignore: body_might_complete_normally_nullable
-                                  validator: ((value) {
-                                    if (value == null || value.isEmpty) {
-                                      return "Please enter amount";
-                                    }
-                                  }),
-                                  controller: _amountTextEditingController,
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                      isDense: true,
-                                      fillColor: Colors.white,
-                                      label: Text("Enter Amount"),
-                                      border: OutlineInputBorder(),
-                                      filled: true),
-                                ),
-                                SizedBox(height: 20),
-                                Text(
-                                  "Categories",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color:
-                                          Color.fromARGB(255, 128, 128, 128)),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Container(
-                                  height: 40,
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.black54),
-                                        ),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButton(
-                                            borderRadius:
-                                                BorderRadius.circular(2),
-                                            hint: Text(
-                                                "                Select Category               "),
-                                            value: _categoryId,
-                                            items: (selectedType == 1
-                                                    ? CategoryDB()
-                                                        .expenseCategoryListListener
-                                                    : CategoryDB()
-                                                        .incomeCategoryListListener)
-                                                .value
-                                                .map((e) {
-                                              return DropdownMenuItem(
-                                                value: e.id,
-                                                child: Text(e.name),
-                                                onTap: () {
-                                                  _selectedCategoryModel = e;
-                                                },
-                                              );
-                                            }).toList(),
-                                            onChanged: (selectedValue) {
-                                              print(selectedValue);
-                                              setState(() {
-                                                _categoryId = selectedValue;
-                                              });
+                                  SizedBox(height: 5),
+                                  Text(
+                                    "Amount",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            Color.fromARGB(255, 128, 128, 128)),
+                                  ),
+                                  SizedBox(height: 15),
+                                  TextFormField(
+                                    // ignore: body_might_complete_normally_nullable
+                                    validator: ((value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Please enter amount";
+                                      }
+                                    }),
+                                    controller: _amountTextEditingController,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                        isDense: true,
+                                        fillColor: Colors.white,
+                                        border: OutlineInputBorder(),
+                                        filled: true),
+                                  ),
+                                  SizedBox(height: 15),
+                                  Text(
+                                    "Categories",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            Color.fromARGB(255, 128, 128, 128)),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Container(
+                                    height: 40,
+                                    child: Row(
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              showCategoryAddPopup(context);
                                             },
+                                            icon: Icon(
+                                              Icons.add_box_outlined,
+                                              color: Color.fromARGB(
+                                                  255, 35, 45, 255),
+                                            )),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.black54),
+                                          ),
+                                          child: DropdownButtonHideUnderline(
+                                            child: DropdownButton(
+                                              borderRadius:
+                                                  BorderRadius.circular(2),
+                                              hint: Text(
+                                                  "                Select Category               "),
+                                              value: _categoryId,
+                                              items: (selectedType == 1
+                                                      ? CategoryDB()
+                                                          .expenseCategoryListListener
+                                                      : CategoryDB()
+                                                          .incomeCategoryListListener)
+                                                  .value
+                                                  .map((e) {
+                                                return DropdownMenuItem(
+                                                  value: e.id,
+                                                  child: Text("   ${e.name}"),
+                                                  onTap: () {
+                                                    _selectedCategoryModel = e;
+                                                  },
+                                                );
+                                              }).toList(),
+                                              onChanged: (selectedValue) {
+                                                print(selectedValue);
+                                                setState(() {
+                                                  _categoryId = selectedValue;
+                                                });
+                                              },
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      IconButton(
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      _selectedCategoryMessages,
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.red),
+                                    ),
+                                  ),
+
+                                  Text(
+                                    "Notes",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            Color.fromARGB(255, 128, 128, 128)),
+                                  ),
+                                  SizedBox(height: 20),
+                                  TextFormField(
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Please enter notes";
+                                      }
+                                    },
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: 3,
+                                    minLines: 3,
+                                    controller: _notesTextEditingController,
+                                    decoration: InputDecoration(
+                                        isDense: true,
+                                        fillColor: Colors.white,
+                                        border: OutlineInputBorder(),
+                                        filled: true),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+
+                                  TextFormField(
+                                    controller: _textFieldDate,
+                                    readOnly: true,
+                                    onTap: () async {
+                                      final selectedDateTemp =
+                                          await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime.now()
+                                            .subtract(const Duration(days: 30)),
+                                        lastDate: DateTime.now(),
+                                      );
+                                      if (selectedDateTemp == null) {
+                                        return;
+                                      } else {
+                                        setState(() {
+                                          _selectedDate = selectedDateTemp;
+                                        });
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                        hintText: (_selectedDate == null
+                                            ? "Select Date"
+                                            : parseDate(_selectedDate!)),
+                                        prefixIcon: Icon(Icons.calendar_month),
+                                        isDense: true,
+                                        fillColor: Colors.white,
+                                        // label: Text(_selectedDate == null
+                                        //     ? "Select Date"
+                                        //     : parseDate(_selectedDate!)),
+                                        border: OutlineInputBorder(),
+                                        filled: true),
+                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(left: 100),
+                                  //   child: TextButton.icon(
+                                  //       onPressed: () async {
+                                  //         final selectedDateTemp =
+                                  //             await showDatePicker(
+                                  //           context: context,
+                                  //           initialDate: DateTime.now(),
+                                  //           firstDate: DateTime.now().subtract(
+                                  //               const Duration(days: 30)),
+                                  //           lastDate: DateTime.now(),
+                                  //         );
+                                  //         if (selectedDateTemp == null) {
+                                  //           return;
+                                  //         } else {
+                                  //           setState(() {
+                                  //             _selectedDate = selectedDateTemp;
+                                  //           });
+                                  //         }
+                                  //       },
+                                  //       icon: Icon(Icons.calendar_today),
+                                  //       label: Text(_selectedDate == null
+                                  //           ? "Select Date"
+                                  //           : parseDate(_selectedDate!))),
+                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 111),
+                                    child: Text(
+                                      _selectedDateMessages,
+                                      style: TextStyle(
+                                          color: Colors.red, fontSize: 12),
+                                    ),
+                                  ),
+                                  // SizedBox(
+                                  //   height: 10,
+                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 72),
+                                    child: Container(
+                                      width: 180,
+                                      child: ElevatedButton(
+                                          style: ButtonStyle(
+                                              shape: MaterialStateProperty.all<
+                                                      RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)))),
                                           onPressed: () {
-                                            showCategoryAddPopup(context);
+                                            if (_selectedCategoryModel ==
+                                                null) {
+                                              setState(() {
+                                                _selectedCategoryMessages =
+                                                    "Please select Category";
+                                              });
+                                            }
+                                            if (_selectedDate == null) {
+                                              setState(() {
+                                                _selectedDateMessages =
+                                                    "Please select date";
+                                              });
+                                            }
+                                            if (_formkey.currentState!
+                                                .validate()) {
+                                              addTransaction();
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                      duration: Duration(
+                                                          milliseconds: 500),
+                                                      content: Text(
+                                                          "Transaction added")));
+                                            }
                                           },
-                                          icon: Icon(
-                                            Icons.add_box_outlined,
-                                            color: Color.fromARGB(
-                                                255, 35, 45, 255),
-                                          ))
-                                    ],
+                                          child: Text("Add")),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    _selectedCategoryMessages,
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.red),
-                                  ),
-                                ),
-                                SizedBox(height: 5),
-                                Text(
-                                  "Notes",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color:
-                                          Color.fromARGB(255, 128, 128, 128)),
-                                ),
-                                SizedBox(height: 20),
-                                TextFormField(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return "Please enter notes";
-                                    }
-                                  },
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: 3,
-                                  minLines: 3,
-                                  controller: _notesTextEditingController,
-                                  decoration: InputDecoration(
-                                      isDense: true,
-                                      fillColor: Colors.white,
-                                      hintText: "Enter Notes",
-                                      border: OutlineInputBorder(),
-                                      filled: true),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 100),
-                                  child: TextButton.icon(
-                                      onPressed: () async {
-                                        final selectedDateTemp =
-                                            await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime.now().subtract(
-                                              const Duration(days: 30)),
-                                          lastDate: DateTime.now(),
-                                        );
-                                        if (selectedDateTemp == null) {
-                                          return;
-                                        } else {
-                                          setState(() {
-                                            _selectedDate = selectedDateTemp;
-                                          });
-                                        }
-                                      },
-                                      icon: Icon(Icons.calendar_today),
-                                      label: Text(_selectedDate == null
-                                          ? "Select Date"
-                                          : parseDate(_selectedDate!))),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 111),
-                                  child: Text(
-                                    _selectedDateMessages,
-                                    style: TextStyle(
-                                        color: Colors.red, fontSize: 12),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 72),
-                                  child: Container(
-                                    width: 180,
-                                    child: ElevatedButton(
-                                        style: ButtonStyle(
-                                            shape: MaterialStateProperty.all<
-                                                    RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20)))),
-                                        onPressed: () {
-                                          if (_selectedCategoryModel == null) {
-                                            setState(() {
-                                              _selectedCategoryMessages =
-                                                  "Please select Category";
-                                            });
-                                          }
-                                          if (_selectedDate == null) {
-                                            setState(() {
-                                              _selectedDateMessages =
-                                                  "Please select date";
-                                            });
-                                          }
-                                          if (_formkey.currentState!
-                                              .validate()) {
-                                            addTransaction();
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                                    duration: Duration(
-                                                        milliseconds: 500),
-                                                    content: Text(
-                                                        "Transaction added")));
-                                          }
-                                        },
-                                        child: Text("Add")),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
