@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:money_manager_app/screens/graph_page/expense_chart.dart';
+import 'package:money_manager_app/screens/graph_page/income_chart.dart';
+import 'package:money_manager_app/screens/graph_page/overview.dart';
 
 class FinancialChart extends StatefulWidget {
   const FinancialChart({super.key});
@@ -10,57 +12,52 @@ class FinancialChart extends StatefulWidget {
   State<FinancialChart> createState() => _FinancialChartState();
 }
 
-class _FinancialChartState extends State<FinancialChart> {
-  late List<GDPData> _chartData;
+class _FinancialChartState extends State<FinancialChart>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController2;
 
   @override
   void initState() {
-    _chartData = getChartData();
+    _tabController2 = TabController(length: 3, vsync: this);
     super.initState();
   }
+
+  @override
+  // void initState() {
+  //   _chartData = getChartData();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Financial Chart"),
         centerTitle: true,
+        title: Text("Financial chart"),
       ),
-      body: Center(
-        child: Container(
-          height: 400,
-          width: 400,
-          child: SfCircularChart(
-            legend: Legend(
-                isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
-            series: <CircularSeries>[
-              DoughnutSeries<GDPData, String>(
-                  dataSource: _chartData,
-                  xValueMapper: (GDPData data, _) => data.continent,
-                  yValueMapper: (GDPData data, _) => data.gdp,
-                  dataLabelSettings: DataLabelSettings(isVisible: true)),
-            ],
-          ),
-        ),
+      body: Column(
+        children: [
+          TabBar(
+              controller: _tabController2,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
+              tabs: [
+                Tab(
+                  text: "Overview",
+                ),
+                Tab(
+                  text: "Income",
+                ),
+                Tab(
+                  text: "Expense",
+                )
+              ]),
+          Expanded(
+              child: TabBarView(
+                  controller: _tabController2,
+                  children: [OverviewChart(), Income_chart(), ExpensesChart()]))
+        ],
       ),
     );
   }
-
-  List<GDPData> getChartData() {
-    final List<GDPData> chartData = [
-      GDPData("Oceania", 1000),
-      GDPData("Arica", 2490),
-      GDPData("s America", 2900),
-      GDPData("Europe", 23050),
-      GDPData("n America", 24800),
-      GDPData("Asia", 34390),
-    ];
-    return chartData;
-  }
-}
-
-class GDPData {
-  GDPData(this.continent, this.gdp);
-  final String continent;
-  final int gdp;
 }

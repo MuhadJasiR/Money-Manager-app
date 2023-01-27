@@ -13,7 +13,7 @@ class FiltrationViewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      icon: Icon(Icons.filter_list_rounded),
+      icon: Icon(Icons.calendar_month),
       itemBuilder: (context) => [
         PopupMenuItem(
           child: Text("All"),

@@ -51,6 +51,7 @@ class _ViewListScreenState extends State<ViewListScreen> {
         actions: [
           FiltrationViewList(),
           PopupMenuButton(
+            icon: Icon(Icons.filter_list_outlined),
             itemBuilder: (context) => [
               PopupMenuItem(
                 onTap: (() {
