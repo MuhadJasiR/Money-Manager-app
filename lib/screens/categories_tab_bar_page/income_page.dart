@@ -75,9 +75,6 @@ class IncomePageScreen extends StatelessWidget {
                     ),
                     height: 20,
                     width: 40,
-                    // child: Card(
-                    //   color: Color.fromARGB(255, 45, 35, 255),
-                    // ),
                   );
                 }));
           }),

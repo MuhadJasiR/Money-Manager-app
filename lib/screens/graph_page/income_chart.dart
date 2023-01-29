@@ -22,9 +22,9 @@ class _Income_chartState extends State<Income_chart> {
               .where((element) => element.category.type == CategoryType.income)
               .toList();
           return allIncomeData.isEmpty
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Text("Nothing Found")],
+              ? Container(
+                  height: 20,
+                  child: Image.asset("asset/25943-nodata.gif", height: 30),
                 )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,

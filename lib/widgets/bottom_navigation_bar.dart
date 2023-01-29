@@ -38,20 +38,32 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            if (currentTab == 0) {
-              Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                return AddTransaction();
-              })));
-            } else {
-              showCategoryAddPopup(context);
-              // print("add category");
-              // final _sample = CategoryModel(
-              //   id: DateTime.now().microsecondsSinceEpoch.toString(),
-              //   name: "travel",
-              //   type: CategoryType.expense,
-              // );
-              // CategoryDB().insertCategory(_sample);
+            switch (currentTab) {
+              case 0:
+                Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                  return AddTransaction();
+                })));
+                break;
+              case 1:
+                showCategoryAddPopup(context,
+                    categoryType: selectedCategoryNotifier.value);
+                break;
+              default:
             }
+            // if (currentTab == 0) {
+            // Navigator.push(context, MaterialPageRoute(builder: ((context) {
+            //   return AddTransaction();
+            // })));
+            // }  else  {
+            // showCategoryAddPopup(context);
+            //   // print("add category");
+            //   // final _sample = CategoryModel(
+            //   //   id: DateTime.now().microsecondsSinceEpoch.toString(),
+            //   //   name: "travel",
+            //   //   type: CategoryType.expense,
+            //   // );
+            //   // CategoryDB().insertCategory(_sample);
+            // }
           },
           // ignore: sort_child_properties_last
           child: Icon(Icons.add),

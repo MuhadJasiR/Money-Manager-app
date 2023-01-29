@@ -255,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           : Column(
                               children: [
                                 SizedBox(
-                                  height: 220,
+                                  height: 200,
                                   width: double.infinity,
                                   child: Image.asset(
                                     "asset/126320-empty-box3-unscreen.gif",

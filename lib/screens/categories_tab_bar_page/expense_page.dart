@@ -55,7 +55,7 @@ class ExpenseScreenPage extends StatelessWidget {
                                                   .deleteCategoty(category.id);
                                               Navigator.of(context).pop();
                                             },
-                                            child: const Text("yes")),
+                                            child: const Text("Yes")),
                                       ],
                                     );
                                   }));

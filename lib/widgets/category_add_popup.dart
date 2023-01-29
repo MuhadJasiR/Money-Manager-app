@@ -7,7 +7,8 @@ import 'package:money_manager_app/models/category_modal.dart';
 ValueNotifier<CategoryType> selectedCategoryNotifier =
     ValueNotifier(CategoryType.income);
 
-Future<void> showCategoryAddPopup(BuildContext context) async {
+Future<void> showCategoryAddPopup(BuildContext context,
+    {CategoryType? categoryType}) async {
   final _nameEditingController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   showDialog(
@@ -22,7 +23,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
                 key: _formkey,
                 child: TextFormField(
                   validator: (value) {
-                    if (value == null) {
+                    if (value == null || value.isEmpty) {
                       return "Please select a category";
                     }
                   },
@@ -34,14 +35,17 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
                 ),
               ),
             ),
-            Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    RadioButton(title: "income", type: CategoryType.income),
-                    RadioButton(title: "Expense", type: CategoryType.expense),
-                  ],
-                )),
+            categoryType != null
+                ? const SizedBox()
+                : Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        RadioButton(title: "income", type: CategoryType.income),
+                        RadioButton(
+                            title: "Expense", type: CategoryType.expense),
+                      ],
+                    )),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: ElevatedButton(
@@ -58,7 +62,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
                   if (_name.isEmpty) {
                     return null;
                   }
-                  final _type = selectedCategoryNotifier.value;
+                  final _type = categoryType ?? selectedCategoryNotifier.value;
                   final _category = CategoryModel(
                       id: DateTime.now().millisecondsSinceEpoch.toString(),
                       name: _name,

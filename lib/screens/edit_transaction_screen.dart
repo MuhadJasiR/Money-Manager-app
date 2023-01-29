@@ -8,8 +8,6 @@ import 'package:money_manager_app/models/category_modal.dart';
 import 'package:money_manager_app/widgets/category_add_popup.dart';
 
 List<Widget> transactionType = <Widget>[Text("INCOME"), Text("EXPENSE")];
-final List<bool> _selectTranscationType = <bool>[true, false];
-bool vertical = false;
 
 class EditTransactionScreen extends StatefulWidget {
   EditTransactionScreen({
@@ -33,17 +31,24 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
   CategoryModel? _selectedCategoryModel;
   TextEditingController _notesTextEditingController = TextEditingController();
   TextEditingController _amountTextEditingController = TextEditingController();
-  String? _categoryId;
-  // ignore: prefer_typing_uninitialized_variables
+  List<bool> _selectTranscationType = <bool>[true, false];
+  String? _categoryId; // ignore: prefer_typing_uninitialized_variables
   var selectedType;
   @override
   void initState() {
+    CategoryDB.instance.expenseCategoryListListener;
+    CategoryDB.instance.incomeCategoryListListener;
     super.initState();
     _amountTextEditingController =
         TextEditingController(text: widget.obj.amount.toString());
     _notesTextEditingController = TextEditingController(text: widget.obj.notes);
     _selectedDate = widget.obj.date;
-    _selectedCategoryType = CategoryType.income;
+    _selectedCategoryType = widget.obj.category.type;
+    _categoryId = widget.obj.category.id;
+    _selectTranscationType = widget.obj.category.type == CategoryType.income
+        ? [true, false]
+        : [false, true];
+
     // _categoryId = widget.obj.category.name;
   }
 
@@ -108,9 +113,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 70),
                                   child: ToggleButtons(
-                                    direction: vertical
-                                        ? Axis.vertical
-                                        : Axis.horizontal,
+                                    direction: Axis.horizontal,
                                     onPressed: (int index) {
                                       setState(() {
                                         for (int i = 0;
@@ -189,10 +192,9 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                           child: DropdownButton(
                                             borderRadius:
                                                 BorderRadius.circular(2),
-                                            hint: Text(
-                                                "                Select Category               "),
                                             value: _categoryId,
-                                            items: (selectedType == 1
+                                            items: (widget.obj.category.type ==
+                                                        CategoryType.expense
                                                     ? CategoryDB()
                                                         .expenseCategoryListListener
                                                     : CategoryDB()

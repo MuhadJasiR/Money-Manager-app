@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/screens/view_all.dart';
 
-// ValueNotifier<List<TransactionModel>> dateFilterNotifier =
-//     ValueNotifier(TransactionDB.instance.transactionListNotifier.value);
-
 class FiltrationViewList extends StatelessWidget {
   const FiltrationViewList({super.key});
 
@@ -25,7 +22,6 @@ class FiltrationViewList extends StatelessWidget {
         PopupMenuItem(
           child: Text("Today"),
           onTap: (() {
-            // dateFilterNotifier.value = allUsers.value;            allUsers.value =
             TransactionDB.instance.transactionListNotifier.value;
             allUsers.value = allUsers.value
                 .where((element) =>
@@ -38,8 +34,6 @@ class FiltrationViewList extends StatelessWidget {
         PopupMenuItem(
           child: Text("Yesterday"),
           onTap: (() {
-            // dateFilterNotifier.value =
-            //     TransactionDB.instance.transactionListNotifier.value;
             allUsers.value =
                 TransactionDB.instance.transactionListNotifier.value;
             allUsers.value = allUsers.value
@@ -51,11 +45,8 @@ class FiltrationViewList extends StatelessWidget {
           }),
         ),
         PopupMenuItem(
-// ValueNotifier<List<TransactionModel>> dateFilterNotifier =
-//     ValueNotifier(TransactionDB.instance.transactionListNotifier.value);
           child: Text("Month"),
           onTap: (() {
-            // dateFilterNotifier = TransactionDB.instance.transactionListNotifier;
             allUsers.value =
                 TransactionDB.instance.transactionListNotifier.value;
             allUsers.value = allUsers.value

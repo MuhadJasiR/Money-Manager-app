@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
 import 'package:money_manager_app/models/category_modal.dart';
+import 'package:money_manager_app/screens/settings_pages/about_page.dart';
+import 'package:money_manager_app/screens/settings_pages/privacy_policy.dart';
 import 'package:money_manager_app/screens/splash_screen.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -19,21 +22,31 @@ class SettingScreen extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              onTap: () {},
+              onTap: () {
+                Share.share(
+                    'hey! check out this new app https://play.google.com/store/search?q=pub%3ADivTag&c=apps');
+              },
               leading: const Icon(
-                Icons.assignment_ind,
+                Icons.share,
                 color: Color.fromARGB(255, 45, 140, 255),
               ),
-              title: const Text("Contact Me"),
+              title: const Text("Share"),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => AboutScreen())));
+              },
               leading: const Icon(Icons.assignment_late_sharp,
                   color: Color.fromARGB(255, 45, 140, 255)),
               title: const Text("About"),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                  return PrivacyPolicyScreen();
+                })));
+              },
               leading: const Icon(Icons.privacy_tip,
                   color: Color.fromARGB(255, 45, 140, 255)),
               title: const Text("Privacy & policy"),

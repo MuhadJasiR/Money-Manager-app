@@ -49,12 +49,9 @@ class TransactionDB implements TransactionDBfunctions {
 
   @override
   Future<void> deleteTransaction(TransactionModel obj) async {
-    print(obj.amount);
     final _db = await Hive.openBox<TransactionModel>(TRANSACTION_DB_NAME);
-    print(obj.id);
 
     await _db.delete(obj.id);
-    print("asd");
 
     refresh();
   }

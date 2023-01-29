@@ -41,6 +41,7 @@ dependencies:
   hive_generator: ^2.0.0
   intl: ^0.18.0
   percent_indicator: ^4.2.2
+  share_plus: ^6.3.0
   shared_preferences: ^2.0.15
   smooth_page_indicator: ^1.0.0+2
   syncfusion_flutter_charts: ^20.4.44
@@ -68,6 +69,8 @@ flutter:
     - asset/93344-money-investment.gif
     - asset/126320-empty-box3.gif
     - asset/126320-empty-box3-unscreen.gif
+    - asset/13659-no-data.gif
+    - asset/25943-nodata.gif
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

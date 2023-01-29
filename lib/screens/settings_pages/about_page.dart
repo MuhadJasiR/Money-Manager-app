@@ -1,0 +1,73 @@
+import 'package:flutter/material.dart';
+
+class AboutScreen extends StatelessWidget {
+  const AboutScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("About "),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SizedBox(
+              height: 300,
+              width: 300,
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: const [
+                      Text(
+                        "Money manager",
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.blueGrey),
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Text(
+                        "This is an app where you can your\n daily transaction according to the \ncategory which it belong to.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w400),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Developed by",
+                        style: TextStyle(color: Colors.black38),
+                      ),
+                      SizedBox(
+                        height: 14,
+                      ),
+                      Text(
+                        "Muhammed Jasir Ali",
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 35, 45, 255)),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Text(
+                        "Contact Me",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+              )),
+        ),
+      ),
+    );
+  }
+}
