@@ -4,8 +4,10 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:money_manager_app/screens/finalcial_report.dart';
 import 'package:money_manager_app/screens/graph_page/pie_chart.dart';
 import 'package:money_manager_app/widgets/total_income_calculation.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class FlippingContainer extends StatefulWidget {
   const FlippingContainer({super.key});
@@ -112,7 +114,37 @@ class _FlippingContainerState extends State<FlippingContainer> {
           ),
         ),
         back: Container(
-          child: Text("Coiming soom"),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Color.fromARGB(255, 47, 137, 255),
+          ),
+          child: Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+            height: 210,
+            width: 360,
+            child: ValueListenableBuilder(
+                valueListenable: doughnutChartNotifier,
+                builder: (context, value, _) {
+                  Map incomeMap = {
+                    "name": "Income",
+                    "amount": incomeTotal.value
+                  };
+                  Map expenseMap = {
+                    "name": "Expense",
+                    "amount": expenseTotal.value
+                  };
+                  List<Map> dataList = [incomeMap, expenseMap];
+                  return value.isEmpty
+                      ? Center(
+                          child: Text(
+                          "No data",
+                          selectionColor: Colors.white,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w400),
+                        ))
+                      : Column();
+                }),
+          ),
         ));
   }
 }

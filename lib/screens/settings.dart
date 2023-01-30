@@ -21,82 +21,104 @@ class SettingScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            ListTile(
-              onTap: () {
-                Share.share(
-                    'hey! check out this new app https://play.google.com/store/search?q=pub%3ADivTag&c=apps');
-              },
-              leading: const Icon(
-                Icons.share,
-                color: Color.fromARGB(255, 45, 140, 255),
+            Card(
+              child: ListTile(
+                onTap: () {
+                  Share.share(
+                      'hey! check out this new app https://play.google.com/store/search?q=pub%3ADivTag&c=apps');
+                },
+                leading: const Icon(
+                  Icons.share,
+                  color: Color.fromARGB(255, 45, 140, 255),
+                ),
+                title: const Text("Share"),
               ),
-              title: const Text("Share"),
             ),
-            ListTile(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => AboutScreen())));
-              },
-              leading: const Icon(Icons.assignment_late_sharp,
-                  color: Color.fromARGB(255, 45, 140, 255)),
-              title: const Text("About"),
+            Card(
+              child: ListTile(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const AboutScreen())));
+                },
+                leading: const Icon(Icons.assignment_late_sharp,
+                    color: Color.fromARGB(255, 45, 140, 255)),
+                title: const Text("About"),
+              ),
             ),
-            ListTile(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                  return PrivacyPolicyScreen();
-                })));
-              },
-              leading: const Icon(Icons.privacy_tip,
-                  color: Color.fromARGB(255, 45, 140, 255)),
-              title: const Text("Privacy & policy"),
+            Card(
+              child: ListTile(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) {
+                    return const PrivacyPolicyScreen();
+                  })));
+                },
+                leading: const Icon(Icons.privacy_tip,
+                    color: Color.fromARGB(255, 45, 140, 255)),
+                title: const Text("Privacy & policy"),
+              ),
             ),
-            ListTile(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        content: const Text("Are you sure to Reset"),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text("No")),
-                          TextButton(
-                              onPressed: () async {
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                await prefs.clear();
-                                SharedPreferences tectcontrol =
-                                    await SharedPreferences.getInstance();
-                                await tectcontrol.clear();
-                                final transationDb =
-                                    await Hive.openBox<TransactionModel>(
-                                        'transaction-db');
-                                final categorydb =
-                                    await Hive.openBox<CategoryModel>(
-                                        'category-database');
+            Card(
+              child: ListTile(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: const Text("Are you sure to Reset"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("No")),
+                            TextButton(
+                                onPressed: () async {
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  await prefs.clear();
+                                  // SharedPreferences textControl =
+                                  //     await SharedPreferences.getInstance();
+                                  // await textControl.clear();
+                                  final transactionDb =
+                                      await Hive.openBox<TransactionModel>(
+                                          'transaction-database');
+                                  final categoryDb =
+                                      await Hive.openBox<CategoryModel>(
+                                          'category-database');
 
-                                categorydb.clear();
-                                transationDb.clear();
-                                // ignore: use_build_context_synchronously
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => const SplashScreen(),
-                                  ),
-                                );
-                              },
-                              child: const Text("Yes"))
-                        ],
-                      );
-                    });
-              },
-              leading: const Icon(Icons.restore_page_outlined,
-                  color: Color.fromARGB(255, 45, 140, 255)),
-              title: const Text("Reset app"),
+                                  categoryDb.clear();
+                                  transactionDb.clear();
+                                  // ignore: use_build_context_synchronously
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SplashScreen(),
+                                    ),
+                                  );
+                                },
+                                child: const Text(
+                                  "Yes",
+                                  style: TextStyle(color: Colors.red),
+                                ))
+                          ],
+                        );
+                      });
+                },
+                leading: const Icon(Icons.restore_page_outlined,
+                    color: Color.fromARGB(255, 45, 140, 255)),
+                title: const Text("Reset app"),
+              ),
             ),
+            const Padding(
+              padding: EdgeInsets.only(top: 400),
+              child: Text(
+                "version 1.0.1",
+                style: TextStyle(color: Colors.black38),
+              ),
+            )
           ],
         ),
       ),

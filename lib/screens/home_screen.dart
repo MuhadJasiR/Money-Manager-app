@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     TransactionDB.instance.refresh();
     CategoryDB.instance.refreshUi();
+
     totalIncomeExpenses();
     return SafeArea(
       child: Scaffold(
@@ -116,14 +117,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (ctx) {
-                              return ViewListScreen();
-                            }));
-                          },
-                          child: Text("View All"))
+                      ValueListenableBuilder(
+                          valueListenable:
+                              TransactionDB.instance.transactionListNotifier,
+                          builder: ((context, values, child) {
+                            return Visibility(
+                              visible: values.isNotEmpty,
+                              child: TextButton(
+                                  onPressed: () {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (ctx) {
+                                      return ViewListScreen();
+                                    }));
+                                  },
+                                  child: Text("View All")),
+                            );
+                          }))
                     ],
                   ),
                 ),
@@ -252,16 +261,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                               })
                           // image which will if there is transaction li
-                          : Column(
-                              children: [
-                                SizedBox(
-                                  height: 200,
-                                  width: double.infinity,
-                                  child: Image.asset(
-                                    "asset/126320-empty-box3-unscreen.gif",
+                          : Padding(
+                              padding: const EdgeInsets.only(top: 40),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 250,
+                                    width: double.infinity,
+                                    child: Image.asset(
+                                      "asset/126320-empty-box3-unscreen.gif",
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             );
                     },
                   )),

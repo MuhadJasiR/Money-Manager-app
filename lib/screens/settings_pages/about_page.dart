@@ -14,7 +14,7 @@ class AboutScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: SizedBox(
-              height: 300,
+              height: 220,
               width: 300,
               child: Card(
                 child: Padding(
@@ -54,13 +54,6 @@ class AboutScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 10,
-                      ),
-                      Divider(
-                        thickness: 1,
-                      ),
-                      Text(
-                        "Contact Me",
-                        style: TextStyle(color: Colors.black),
                       ),
                     ],
                   ),

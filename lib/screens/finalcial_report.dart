@@ -40,7 +40,9 @@ class _FinancialChartState extends State<FinancialChart>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0,
         centerTitle: true,
         title: Text("Financial chart"),
         actions: [
@@ -98,21 +100,30 @@ class _FinancialChartState extends State<FinancialChart>
       ),
       body: Column(
         children: [
-          TabBar(
-              controller: _tabController2,
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey,
-              tabs: const [
-                Tab(
-                  text: "Overview",
-                ),
-                Tab(
-                  text: "Income",
-                ),
-                Tab(
-                  text: "Expense",
-                )
-              ]),
+          Container(
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 35, 45, 255),
+            ),
+            child: TabBar(
+                controller: _tabController2,
+                unselectedLabelColor: Colors.white,
+                labelColor: Color.fromARGB(255, 35, 45, 255),
+                indicatorWeight: 2,
+                indicator: BoxDecoration(
+                    color: Color.fromARGB(255, 149, 204, 255),
+                    borderRadius: BorderRadius.circular(2)),
+                tabs: const [
+                  Tab(
+                    text: "Overview",
+                  ),
+                  Tab(
+                    text: "Income",
+                  ),
+                  Tab(
+                    text: "Expense",
+                  )
+                ]),
+          ),
           Expanded(
               child: TabBarView(controller: _tabController2, children: const [
             OverviewChart(),

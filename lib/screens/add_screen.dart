@@ -35,6 +35,7 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
   void initState() {
     _selectedCategoryType = CategoryType.income;
+
     super.initState();
   }
 
@@ -98,9 +99,9 @@ class _AddTransactionState extends State<AddTransaction> {
                                     height: 5,
                                   ),
                                   ToggleButtons(
-                                    direction: vertical
-                                        ? Axis.vertical
-                                        : Axis.horizontal,
+                                    // direction: vertical
+                                    //     ? Axis.vertical
+                                    //     : Axis.horizontal,
                                     onPressed: (int index) {
                                       setState(() {
                                         for (int i = 0;

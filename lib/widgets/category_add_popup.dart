@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
+// ignore_for_file: no_leading_underscores_for_local_identifiers, avoid_returning_null_for_void, invalid_use_of_protected_member, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/category_db.dart';
@@ -41,8 +41,9 @@ Future<void> showCategoryAddPopup(BuildContext context,
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
                       children: [
-                        RadioButton(title: "income", type: CategoryType.income),
-                        RadioButton(
+                        const RadioButton(
+                            title: "income", type: CategoryType.income),
+                        const RadioButton(
                             title: "Expense", type: CategoryType.expense),
                       ],
                     )),
@@ -82,8 +83,7 @@ Future<void> showCategoryAddPopup(BuildContext context,
 class RadioButton extends StatelessWidget {
   final String title;
   final CategoryType type;
-  // final CategoryType selectedtype;
-  RadioButton({
+  const RadioButton({
     super.key,
     required this.title,
     required this.type,

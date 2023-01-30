@@ -44,6 +44,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
     _notesTextEditingController = TextEditingController(text: widget.obj.notes);
     _selectedDate = widget.obj.date;
     _selectedCategoryType = widget.obj.category.type;
+    _selectedCategoryModel = widget.obj.category;
     _categoryId = widget.obj.category.id;
     _selectTranscationType = widget.obj.category.type == CategoryType.income
         ? [true, false]
@@ -113,7 +114,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 70),
                                   child: ToggleButtons(
-                                    direction: Axis.horizontal,
+                                    // direction: Axis.horizontal,
                                     onPressed: (int index) {
                                       setState(() {
                                         for (int i = 0;
@@ -183,7 +184,17 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                   height: 40,
                                   child: Row(
                                     children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            showCategoryAddPopup(context);
+                                          },
+                                          icon: Icon(
+                                            Icons.add_box_outlined,
+                                            color: Color.fromARGB(
+                                                255, 35, 45, 255),
+                                          )),
                                       Container(
+                                        width: 288,
                                         decoration: BoxDecoration(
                                           border:
                                               Border.all(color: Colors.black54),
@@ -193,8 +204,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(2),
                                             value: _categoryId,
-                                            items: (widget.obj.category.type ==
-                                                        CategoryType.expense
+                                            items: (selectedType == 1
                                                     ? CategoryDB()
                                                         .expenseCategoryListListener
                                                     : CategoryDB()
@@ -203,7 +213,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                                 .map((e) {
                                               return DropdownMenuItem(
                                                 value: e.id,
-                                                child: Text(e.name),
+                                                child: Text("   ${e.name}"),
                                                 onTap: () {
                                                   _selectedCategoryModel = e;
                                                 },
@@ -218,15 +228,6 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                           ),
                                         ),
                                       ),
-                                      IconButton(
-                                          onPressed: () {
-                                            showCategoryAddPopup(context);
-                                          },
-                                          icon: Icon(
-                                            Icons.add_box_outlined,
-                                            color: Color.fromARGB(
-                                                255, 35, 45, 255),
-                                          ))
                                     ],
                                   ),
                                 ),
@@ -334,7 +335,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(const SnackBar(
                                                     duration: Duration(
-                                                        milliseconds: 500),
+                                                        milliseconds: 1200),
                                                     content: Text(
                                                         "Transaction edited")));
                                           }
