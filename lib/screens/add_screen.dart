@@ -9,7 +9,6 @@ import 'package:money_manager_app/models/category_modal.dart';
 import 'package:money_manager_app/widgets/category_add_popup.dart';
 
 List<Widget> transactionType = <Widget>[Text("INCOME"), Text("EXPENSE")];
-final List<bool> _selectTranscationType = <bool>[true, false];
 bool vertical = false;
 
 class AddTransaction extends StatefulWidget {
@@ -28,6 +27,7 @@ class _AddTransactionState extends State<AddTransaction> {
   CategoryModel? _selectedCategoryModel;
   final _notesTextEditingController = TextEditingController();
   final _amountTextEditingController = TextEditingController();
+  late final List<bool> _selectTranscationType;
 
   var selectedType;
   String? _categoryId;
@@ -35,6 +35,7 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
   void initState() {
     _selectedCategoryType = CategoryType.income;
+    _selectTranscationType = <bool>[true, false];
 
     super.initState();
   }
