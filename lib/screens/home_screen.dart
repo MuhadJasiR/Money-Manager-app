@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers
-
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -30,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     totalIncomeExpenses();
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 239, 247, 255),
+        backgroundColor: const Color.fromARGB(255, 239, 247, 255),
         body: Column(
           children: [
             SizedBox(
@@ -40,51 +38,40 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     height: 250,
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 35, 43, 255),
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(30),
                           bottomRight: Radius.circular(30)),
                     ),
                   ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(15.0),
-                        child: Text(
-                          DateFormat("y MMMM\nEEEE d").format(DateTime.now()),
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 212, 212, 212),
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 200),
-                        child: Text(
-                          "Jasir ALi",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 212, 212, 212),
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      DateFormat("y MMMM\nEEEE d").format(DateTime.now()),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 212, 212, 212),
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                   Positioned(
                     left: 115,
                     top: 70,
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30),
-                          child: Text(
-                            "Total Balance",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 212, 212, 212),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 30),
+                          child: Center(
+                            child: Text(
+                              "Total Balance",
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 212, 212, 212),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         ValueListenableBuilder(
@@ -92,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             builder: ((context, value, _) {
                               return Text(
                                 "\u{20B9} ${totalAmount.value}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255),
                                     fontWeight: FontWeight.bold,
                                     fontSize: 40),
@@ -101,18 +88,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  Positioned(left: 23.5, top: 160, child: FlippingContainer()),
+                  const Positioned(
+                      left: 23.5, top: 160, child: FlippingContainer()),
                 ],
               ),
             ),
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 25, top: 125, left: 20),
+                  padding: const EdgeInsets.only(right: 25, top: 130, left: 25),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         "Recent Transaction",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
@@ -127,10 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   onPressed: () {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (ctx) {
-                                      return ViewListScreen();
+                                      return const ViewListScreen();
                                     }));
                                   },
-                                  child: Text("View All")),
+                                  child: const Text("View All")),
                             );
                           }))
                     ],
@@ -154,12 +142,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount:
                                   newList.length > 5 ? 5 : newList.length,
                               itemBuilder: (context, index) {
-                                final _value = newList[index];
-                                if (_value.id != null) {
+                                final value = newList[index];
+                                if (value.id != null) {
                                   return Slidable(
-                                    key: Key(_value.id!),
+                                    key: Key(value.id!),
                                     startActionPane: ActionPane(
-                                        motion: BehindMotion(),
+                                        motion: const BehindMotion(),
                                         children: [
                                           SlidableAction(
                                             onPressed: (context) {
@@ -167,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   context: context,
                                                   builder: ((context) {
                                                     return AlertDialog(
-                                                      content: Text(
+                                                      content: const Text(
                                                           "DO you want to delete"),
                                                       actions: [
                                                         TextButton(
@@ -176,31 +164,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       context)
                                                                   .pop();
                                                             },
-                                                            child: Text("No")),
+                                                            child: const Text(
+                                                                "No")),
                                                         TextButton(
                                                             onPressed: () {
                                                               TransactionDB
                                                                   .instance
                                                                   .deleteTransaction(
-                                                                      _value);
+                                                                      value);
                                                               Navigator.of(
                                                                       context)
                                                                   .pop();
                                                             },
-                                                            child: Text("Yes")),
+                                                            child: const Text(
+                                                                "Yes")),
                                                       ],
                                                     );
                                                   }));
                                             },
-                                            backgroundColor: Color.fromARGB(
-                                                255, 239, 247, 255),
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 239, 247, 255),
                                             foregroundColor: Colors.red,
                                             icon: Icons.delete_outlined,
                                             label: "Delete",
                                           )
                                         ]),
                                     endActionPane: ActionPane(
-                                        motion: BehindMotion(),
+                                        motion: const BehindMotion(),
                                         children: [
                                           SlidableAction(
                                             onPressed: (ctx) {
@@ -208,13 +199,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   MaterialPageRoute(
                                                       builder: ((context) {
                                                 return EditTransactionScreen(
-                                                  obj: _value,
-                                                  id: _value.id,
+                                                  obj: value,
+                                                  id: value.id,
                                                 );
                                               })));
                                             },
-                                            backgroundColor: Color.fromARGB(
-                                                255, 239, 247, 255),
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 239, 247, 255),
                                             foregroundColor: Colors.blue,
                                             icon: Icons.edit,
                                           )
@@ -223,28 +215,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         Card(
                                           child: ListTile(
-                                            leading: _value.category.type ==
+                                            leading: value.category.type ==
                                                     CategoryType.income
-                                                ? Icon(
+                                                ? const Icon(
                                                     Icons.arrow_upward,
                                                     color: Colors.blue,
                                                     size: 30,
                                                   )
-                                                : Icon(
+                                                : const Icon(
                                                     Icons.arrow_downward,
                                                     color: Color.fromARGB(
                                                         255, 255, 0, 55),
                                                     size: 30,
                                                   ),
                                             title: Text(
-                                              _value.category.name,
-                                              style: TextStyle(fontSize: 20),
+                                              value.category.name,
+                                              style:
+                                                  const TextStyle(fontSize: 20),
                                             ),
                                             subtitle:
-                                                Text(parseDate(_value.date)),
+                                                Text(parseDate(value.date)),
                                             trailing: Text(
-                                              " ${_value.amount}",
-                                              style: TextStyle(
+                                              " ${value.amount}",
+                                              style: const TextStyle(
                                                   fontSize: 20,
                                                   color: Colors.black45,
                                                   fontWeight: FontWeight.w500),
@@ -261,19 +254,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                               })
                           // image which will if there is transaction li
-                          : Padding(
-                              padding: const EdgeInsets.only(top: 40),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 250,
-                                    width: double.infinity,
-                                    child: Image.asset(
-                                      "asset/126320-empty-box3-unscreen.gif",
-                                    ),
-                                  ),
-                                ],
-                              ),
+                          : Column(
+                              children: [
+                                Image.asset(
+                                  "asset/126320-empty-box3-unscreen.gif",
+                                  height: 250,
+                                ),
+                              ],
                             );
                     },
                   )),

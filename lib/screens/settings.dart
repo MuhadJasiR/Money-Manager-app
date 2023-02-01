@@ -21,20 +21,12 @@ class SettingScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Card(
-              child: ListTile(
-                onTap: () {
-                  Share.share(
-                      'hey! check out this new app https://play.google.com/store/search?q=pub%3ADivTag&c=apps');
-                },
-                leading: const Icon(
-                  Icons.share,
-                  color: Color.fromARGB(255, 45, 140, 255),
-                ),
-                title: const Text("Share"),
-              ),
+            const SizedBox(
+              height: 10,
             ),
             Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
               child: ListTile(
                 onTap: () {
                   Navigator.push(
@@ -47,7 +39,30 @@ class SettingScreen extends StatelessWidget {
                 title: const Text("About"),
               ),
             ),
+            const SizedBox(
+              height: 5,
+            ),
             Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: ListTile(
+                onTap: () {
+                  Share.share(
+                      'hey! check out this new app https://play.google.com/store/apps/dev?id=7327906935422413621');
+                },
+                leading: const Icon(
+                  Icons.share,
+                  color: Color.fromARGB(255, 45, 140, 255),
+                ),
+                title: const Text("Share"),
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
               child: ListTile(
                 onTap: () {
                   Navigator.push(context,
@@ -60,7 +75,12 @@ class SettingScreen extends StatelessWidget {
                 title: const Text("Privacy & policy"),
               ),
             ),
+            const SizedBox(
+              height: 5,
+            ),
             Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
               child: ListTile(
                 onTap: () {
                   showDialog(
@@ -79,9 +99,7 @@ class SettingScreen extends StatelessWidget {
                                   SharedPreferences prefs =
                                       await SharedPreferences.getInstance();
                                   await prefs.clear();
-                                  // SharedPreferences textControl =
-                                  //     await SharedPreferences.getInstance();
-                                  // await textControl.clear();
+
                                   final transactionDb =
                                       await Hive.openBox<TransactionModel>(
                                           'transaction-database');
@@ -107,17 +125,17 @@ class SettingScreen extends StatelessWidget {
                         );
                       });
                 },
-                leading: const Icon(Icons.restore_page_outlined,
+                leading: const Icon(Icons.restart_alt,
                     color: Color.fromARGB(255, 45, 140, 255)),
                 title: const Text("Reset app"),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 400),
-              child: Text(
-                "version 1.0.1",
-                style: TextStyle(color: Colors.black38),
-              ),
+            const SizedBox(
+              height: 380,
+            ),
+            const Text(
+              "version 1.0.0",
+              style: TextStyle(color: Colors.black38),
             )
           ],
         ),

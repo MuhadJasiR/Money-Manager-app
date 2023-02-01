@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, must_be_immutable
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, must_be_immutable, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/category_db.dart';
@@ -32,7 +32,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
   TextEditingController _notesTextEditingController = TextEditingController();
   TextEditingController _amountTextEditingController = TextEditingController();
   List<bool> _selectTranscationType = <bool>[true, false];
-  String? _categoryId; // ignore: prefer_typing_uninitialized_variables
+  String? _categoryId;
   var selectedType;
   @override
   void initState() {
@@ -49,8 +49,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
     _selectTranscationType = widget.obj.category.type == CategoryType.income
         ? [true, false]
         : [false, true];
-
-    // _categoryId = widget.obj.category.name;
+    selectedType = _selectedCategoryType == CategoryType.income ? 0 : 1;
   }
 
   @override
@@ -180,10 +179,53 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                 SizedBox(
                                   height: 15,
                                 ),
-                                Container(
+                                SizedBox(
                                   height: 40,
                                   child: Row(
                                     children: [
+                                      Container(
+                                          width: 288,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.black54),
+                                          ),
+                                          child: ValueListenableBuilder(
+                                              valueListenable: CategoryDB()
+                                                  .incomeCategoryListListener,
+                                              builder:
+                                                  ((context, value, child) {
+                                                return DropdownButtonHideUnderline(
+                                                  child: DropdownButton(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            2),
+                                                    value: _categoryId,
+                                                    items: (selectedType == 1
+                                                            ? CategoryDB()
+                                                                .expenseCategoryListListener
+                                                            : CategoryDB()
+                                                                .incomeCategoryListListener)
+                                                        .value
+                                                        .map((e) {
+                                                      return DropdownMenuItem(
+                                                        value: e.id,
+                                                        child: Text(
+                                                            "   ${e.name}"),
+                                                        onTap: () {
+                                                          _selectedCategoryModel =
+                                                              e;
+                                                        },
+                                                      );
+                                                    }).toList(),
+                                                    onChanged: (selectedValue) {
+                                                      setState(() {
+                                                        _categoryId =
+                                                            selectedValue;
+                                                      });
+                                                    },
+                                                  ),
+                                                );
+                                              }))),
                                       IconButton(
                                           onPressed: () {
                                             showCategoryAddPopup(context);
@@ -193,41 +235,6 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                             color: Color.fromARGB(
                                                 255, 35, 45, 255),
                                           )),
-                                      Container(
-                                        width: 288,
-                                        decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.black54),
-                                        ),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButton(
-                                            borderRadius:
-                                                BorderRadius.circular(2),
-                                            value: _categoryId,
-                                            items: (selectedType == 1
-                                                    ? CategoryDB()
-                                                        .expenseCategoryListListener
-                                                    : CategoryDB()
-                                                        .incomeCategoryListListener)
-                                                .value
-                                                .map((e) {
-                                              return DropdownMenuItem(
-                                                value: e.id,
-                                                child: Text("   ${e.name}"),
-                                                onTap: () {
-                                                  _selectedCategoryModel = e;
-                                                },
-                                              );
-                                            }).toList(),
-                                            onChanged: (selectedValue) {
-                                              print(selectedValue);
-                                              setState(() {
-                                                _categoryId = selectedValue;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -257,41 +264,46 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                     }
                                   },
                                   keyboardType: TextInputType.multiline,
+                                  maxLines: 2,
+                                  minLines: 2,
                                   controller: _notesTextEditingController,
                                   decoration: InputDecoration(
                                       isDense: true,
                                       fillColor: Colors.white,
-                                      label: Text("Enter Notes"),
                                       border: OutlineInputBorder(),
                                       filled: true),
                                 ),
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 100),
-                                  child: TextButton.icon(
-                                      onPressed: () async {
-                                        final selectedDateTemp =
-                                            await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime.now().subtract(
-                                              const Duration(days: 30)),
-                                          lastDate: DateTime.now(),
-                                        );
-                                        if (selectedDateTemp == null) {
-                                          return;
-                                        } else {
-                                          setState(() {
-                                            _selectedDate = selectedDateTemp;
-                                          });
-                                        }
-                                      },
-                                      icon: Icon(Icons.calendar_today),
-                                      label: Text(_selectedDate == null
+                                TextFormField(
+                                  readOnly: true,
+                                  onTap: () async {
+                                    final selectedDateTemp =
+                                        await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now()
+                                          .subtract(const Duration(days: 30)),
+                                      lastDate: DateTime.now(),
+                                    );
+                                    if (selectedDateTemp == null) {
+                                      return;
+                                    } else {
+                                      setState(() {
+                                        _selectedDate = selectedDateTemp;
+                                      });
+                                    }
+                                  },
+                                  decoration: InputDecoration(
+                                      hintText: (_selectedDate == null
                                           ? "Select Date"
-                                          : parseDate(_selectedDate!))),
+                                          : parseDate(_selectedDate!)),
+                                      prefixIcon: Icon(Icons.calendar_month),
+                                      isDense: true,
+                                      fillColor: Colors.white,
+                                      border: OutlineInputBorder(),
+                                      filled: true),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 111),

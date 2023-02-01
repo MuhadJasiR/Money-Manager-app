@@ -47,6 +47,7 @@ class _FinancialChartState extends State<FinancialChart>
         title: Text("Financial chart"),
         actions: [
           PopupMenuButton(
+              icon: Icon(Icons.filter_list_rounded),
               itemBuilder: ((context) => [
                     PopupMenuItem(
                         onTap: (() {
@@ -94,7 +95,7 @@ class _FinancialChartState extends State<FinancialChart>
                                   element.date.year == DateTime.now().year)
                               .toList();
                         }),
-                        child: Text("Month")),
+                        child: Text("This month")),
                   ]))
         ],
       ),

@@ -14,78 +14,91 @@ class ExpenseScreenPage extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: CategoryDB().expenseCategoryListListener,
         builder: (BuildContext ctx, List<CategoryModel> newList, Widget? _) {
-          return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: (2 / 1.3),
-                crossAxisCount: 2,
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20,
-              ),
-              itemCount: newList.length,
-              itemBuilder: ((context, index) {
-                final category = newList[index];
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.teal[200],
+          return newList.isNotEmpty
+              ? GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: (2 / 1.3),
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
                   ),
+                  itemCount: newList.length,
+                  itemBuilder: ((context, index) {
+                    final category = newList[index];
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.teal[200],
+                      ),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 140,
+                            ),
+                            child: IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: ((context) {
+                                        return AlertDialog(
+                                          content: const Text(
+                                              "Do you want to delete"),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text("No")),
+                                            TextButton(
+                                                onPressed: () {
+                                                  CategoryDB.instance
+                                                      .deleteCategoty(
+                                                          category.id);
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text("Yes")),
+                                          ],
+                                        );
+                                      }));
+                                },
+                                icon: const Icon(
+                                  Icons.dangerous_sharp,
+                                  color: Colors.red,
+                                  size: 20,
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 11),
+                            child: Text(
+                              category.name,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                            ),
+                          ),
+                        ],
+                      ),
+                      height: 20,
+                      width: 40,
+                      // child: Card(
+                      //   color: Color.fromARGB(255, 45, 35, 255),
+                      // ),
+                    );
+                  }))
+              : Padding(
+                  padding: const EdgeInsets.only(top: 170),
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 140,
-                        ),
-                        child: IconButton(
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: ((context) {
-                                    return AlertDialog(
-                                      content:
-                                          const Text("Do you want to delete"),
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text("No")),
-                                        TextButton(
-                                            onPressed: () {
-                                              CategoryDB.instance
-                                                  .deleteCategoty(category.id);
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text("Yes")),
-                                      ],
-                                    );
-                                  }));
-                            },
-                            icon: const Icon(
-                              Icons.dangerous_sharp,
-                              color: Colors.red,
-                              size: 20,
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 11),
-                        child: Text(
-                          category.name,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 255, 255, 255)),
-                        ),
+                      Image.asset(
+                        "asset/98979-empy-list.gif",
+                        height: 250,
                       ),
                     ],
                   ),
-                  height: 20,
-                  width: 40,
-                  // child: Card(
-                  //   color: Color.fromARGB(255, 45, 35, 255),
-                  // ),
                 );
-              }));
         },
       ),
     );

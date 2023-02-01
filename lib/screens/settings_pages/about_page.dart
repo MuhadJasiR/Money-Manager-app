@@ -17,6 +17,7 @@ class AboutScreen extends StatelessWidget {
               height: 220,
               width: 300,
               child: Card(
+                elevation: 10,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -32,13 +33,13 @@ class AboutScreen extends StatelessWidget {
                         thickness: 1,
                       ),
                       Text(
-                        "This is an app where you can your\n daily transaction according to the \ncategory which it belong to.",
+                        "This is an app where you can add your\n daily transaction according to the \ncategory which it belong to.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w400),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       Text(
                         "Developed by",
