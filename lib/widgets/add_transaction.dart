@@ -1,6 +1,7 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:money_manager_app/db/transacrtion_model.dart';
 import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
@@ -32,24 +33,24 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
                         Card(
                           child: ListTile(
                             leading: _value.type == CategoryType.income
-                                ? Icon(
+                                ? const Icon(
                                     Icons.arrow_upward,
                                     color: Colors.blue,
                                     size: 30,
                                   )
-                                : Icon(
+                                : const Icon(
                                     Icons.arrow_downward,
                                     color: Color.fromARGB(255, 255, 0, 55),
                                     size: 30,
                                   ),
                             title: Text(
                               _value.category.name,
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                             ),
                             subtitle: Text(parseDate(_value.date)),
                             trailing: Text(
                               " ${_value.amount}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.black45,
                                   fontWeight: FontWeight.w500),

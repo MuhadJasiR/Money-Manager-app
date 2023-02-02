@@ -31,7 +31,7 @@ class _OverviewChartState extends State<OverviewChart> {
           Map expenseMap = {"name": "Expense", "amount": expenseTotal.value};
           List<Map> dataList = [incomeMap, expenseMap];
           return value.isEmpty
-              ? Container(
+              ? SizedBox(
                   height: 20,
                   child: Image.asset("asset/25943-nodata.gif", height: 30),
                 )

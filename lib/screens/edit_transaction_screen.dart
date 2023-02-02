@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, must_be_immutable, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/category_db.dart';
@@ -7,8 +7,12 @@ import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
 import 'package:money_manager_app/widgets/category_add_popup.dart';
 
-List<Widget> transactionType = <Widget>[Text("INCOME"), Text("EXPENSE")];
+List<Widget> transactionType = <Widget>[
+  const Text("INCOME"),
+  const Text("EXPENSE")
+];
 
+// ignore: must_be_immutable
 class EditTransactionScreen extends StatefulWidget {
   EditTransactionScreen({
     super.key,
@@ -63,13 +67,13 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
             Container(
               height: 200,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 45, 35, 255),
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(60),
                       bottomRight: Radius.circular(60))),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 120, top: 50),
+              child: const Padding(
+                padding: EdgeInsets.only(left: 120, top: 50),
                 child: Text(
                   "Edit Transaction",
                   style: TextStyle(
@@ -85,7 +89,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 80),
                   child: Container(
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     height: 630,
                     width: double.infinity,
                     child: Card(
@@ -99,7 +103,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "Transaction type",
                                   style: TextStyle(
                                       fontSize: 15,
@@ -107,7 +111,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                       color:
                                           Color.fromARGB(255, 128, 128, 128)),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Padding(
@@ -126,22 +130,24 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                         }
                                       });
                                     },
-                                    color: Color.fromARGB(255, 128, 128, 128),
+                                    color: const Color.fromARGB(
+                                        255, 128, 128, 128),
                                     borderColor:
-                                        Color.fromARGB(255, 45, 35, 255),
+                                        const Color.fromARGB(255, 45, 35, 255),
                                     borderRadius: BorderRadius.circular(25),
                                     selectedBorderColor:
-                                        Color.fromARGB(255, 35, 43, 255),
+                                        const Color.fromARGB(255, 35, 43, 255),
                                     selectedColor: Colors.white,
-                                    fillColor: Color.fromARGB(255, 35, 43, 255),
-                                    constraints: BoxConstraints(
+                                    fillColor:
+                                        const Color.fromARGB(255, 35, 43, 255),
+                                    constraints: const BoxConstraints(
                                         minHeight: 30, minWidth: 85),
-                                    children: transactionType,
                                     isSelected: _selectTranscationType,
+                                    children: transactionType,
                                   ),
                                 ),
-                                SizedBox(height: 8),
-                                Text(
+                                const SizedBox(height: 8),
+                                const Text(
                                   "Amount",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
@@ -150,7 +156,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                       color:
                                           Color.fromARGB(255, 128, 128, 128)),
                                 ),
-                                SizedBox(height: 15),
+                                const SizedBox(height: 15),
                                 TextFormField(
                                   // ignore: body_might_complete_normally_nullable
                                   validator: ((value) {
@@ -160,15 +166,15 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                   }),
                                   controller: _amountTextEditingController,
                                   keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       isDense: true,
                                       fillColor: Colors.white,
                                       label: Text("Enter Amount"),
                                       border: OutlineInputBorder(),
                                       filled: true),
                                 ),
-                                SizedBox(height: 20),
-                                Text(
+                                const SizedBox(height: 20),
+                                const Text(
                                   "Categories",
                                   style: TextStyle(
                                       fontSize: 15,
@@ -176,7 +182,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                       color:
                                           Color.fromARGB(255, 128, 128, 128)),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15,
                                 ),
                                 SizedBox(
@@ -230,7 +236,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                           onPressed: () {
                                             showCategoryAddPopup(context);
                                           },
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.add_box_outlined,
                                             color: Color.fromARGB(
                                                 255, 35, 45, 255),
@@ -242,12 +248,12 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     _selectedCategoryMessages,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 12, color: Colors.red),
                                   ),
                                 ),
-                                SizedBox(height: 5),
-                                Text(
+                                const SizedBox(height: 5),
+                                const Text(
                                   "Notes",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
@@ -256,7 +262,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                       color:
                                           Color.fromARGB(255, 128, 128, 128)),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 TextFormField(
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
@@ -267,13 +273,13 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                   maxLines: 2,
                                   minLines: 2,
                                   controller: _notesTextEditingController,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       isDense: true,
                                       fillColor: Colors.white,
                                       border: OutlineInputBorder(),
                                       filled: true),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 TextFormField(
@@ -299,26 +305,27 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                       hintText: (_selectedDate == null
                                           ? "Select Date"
                                           : parseDate(_selectedDate!)),
-                                      prefixIcon: Icon(Icons.calendar_month),
+                                      prefixIcon:
+                                          const Icon(Icons.calendar_month),
                                       isDense: true,
                                       fillColor: Colors.white,
-                                      border: OutlineInputBorder(),
+                                      border: const OutlineInputBorder(),
                                       filled: true),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 111),
                                   child: Text(
                                     _selectedDateMessages,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.red, fontSize: 12),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 72),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 180,
                                     child: ElevatedButton(
                                         style: ButtonStyle(
@@ -352,7 +359,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                                         "Transaction edited")));
                                           }
                                         },
-                                        child: Text("Update")),
+                                        child: const Text("Update")),
                                   ),
                                 ),
                               ],

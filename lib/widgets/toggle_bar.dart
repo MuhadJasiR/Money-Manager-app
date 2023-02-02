@@ -1,13 +1,12 @@
-// ignore_for_file: prefer_const_constructors
-// ignore_for_file:
+// ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
 
 List<Widget> periods = <Widget>[
-  Text("Today"),
-  Text("Week"),
-  Text("Month"),
-  Text("Year"),
+  const Text("Today"),
+  const Text("Week"),
+  const Text("Month"),
+  const Text("Year"),
 ];
 
 class ToggleButtonWidget extends StatefulWidget {
@@ -18,7 +17,7 @@ class ToggleButtonWidget extends StatefulWidget {
 }
 
 class _Toggle_BarState extends State<ToggleButtonWidget> {
-  List<bool> _selectPeriods = <bool>[true, false, false, false];
+  final List<bool> _selectPeriods = <bool>[true, false, false, false];
   bool vertical = false;
   @override
   Widget build(BuildContext context) {
@@ -34,10 +33,10 @@ class _Toggle_BarState extends State<ToggleButtonWidget> {
       color: Colors.white,
       borderColor: Colors.white,
       borderRadius: BorderRadius.circular(25),
-      selectedBorderColor: Color.fromARGB(255, 35, 43, 255),
+      selectedBorderColor: const Color.fromARGB(255, 35, 43, 255),
       selectedColor: Colors.white,
-      fillColor: Color.fromARGB(255, 35, 43, 255),
-      constraints: BoxConstraints(minHeight: 30, minWidth: 85),
+      fillColor: const Color.fromARGB(255, 35, 43, 255),
+      constraints: const BoxConstraints(minHeight: 30, minWidth: 85),
       isSelected: _selectPeriods,
       children: periods,
     );

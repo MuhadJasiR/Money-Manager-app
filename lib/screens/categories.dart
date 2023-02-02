@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/category_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
@@ -38,8 +36,8 @@ class _CategoriesState extends State<Categories>
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        title: Text("Categories"),
-        shape: RoundedRectangleBorder(
+        title: const Text("Categories"),
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(30))),
       ),
       body: Column(
@@ -50,15 +48,15 @@ class _CategoriesState extends State<Categories>
               height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Color.fromARGB(255, 35, 45, 255),
+                color: const Color.fromARGB(255, 35, 45, 255),
               ),
               child: TabBar(
                 unselectedLabelColor: Colors.white,
-                labelColor: Color.fromARGB(255, 35, 45, 255),
+                labelColor: const Color.fromARGB(255, 35, 45, 255),
                 controller: _tabController,
                 indicatorWeight: 2,
                 indicator: BoxDecoration(
-                    color: Color.fromARGB(255, 149, 204, 255),
+                    color: const Color.fromARGB(255, 149, 204, 255),
                     borderRadius: BorderRadius.circular(20)),
                 tabs: const [
                   Tab(
@@ -66,11 +64,6 @@ class _CategoriesState extends State<Categories>
                   ),
                   Tab(text: "EXPENSE"),
                 ],
-                // onTap: (value) {
-                //   selectedCategoryNotifier.value = _tabController.index == 0
-                //       ? CategoryType.income
-                //       : CategoryType.expense;
-                // },
               ),
             ),
           ),

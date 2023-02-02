@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, no_leading_underscores_for_local_identifiers
+// ignore_for_file: no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -19,11 +19,8 @@ class ViewListScreen extends StatefulWidget {
 }
 
 class _ViewListScreenState extends State<ViewListScreen> {
-  List<TransactionModel> _foundUsers = [];
-
   @override
   void initState() {
-    _foundUsers = allUsers.value;
     super.initState();
   }
 
@@ -47,19 +44,18 @@ class _ViewListScreenState extends State<ViewListScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 35, 45, 255),
+        backgroundColor: const Color.fromARGB(255, 35, 45, 255),
         actions: [
-          FiltrationViewList(),
+          const FiltrationViewList(),
           PopupMenuButton(
-            icon: Icon(Icons.filter_list_outlined),
+            icon: const Icon(Icons.filter_list_outlined),
             itemBuilder: (context) => [
               PopupMenuItem(
                 onTap: (() {
                   allUsers.value =
                       TransactionDB.instance.transactionListNotifier.value;
-                  _foundUsers = allUsers.value;
                 }),
-                child: Text("All"),
+                child: const Text("All"),
               ),
               PopupMenuItem(
                 onTap: (() {
@@ -69,9 +65,8 @@ class _ViewListScreenState extends State<ViewListScreen> {
                       .where((element) =>
                           element.category.type == CategoryType.income)
                       .toList();
-                  _foundUsers = allUsers.value;
                 }),
-                child: Text("Income"),
+                child: const Text("Income"),
               ),
               PopupMenuItem(
                 onTap: (() {
@@ -81,10 +76,8 @@ class _ViewListScreenState extends State<ViewListScreen> {
                       .where((element) =>
                           element.category.type == CategoryType.expense)
                       .toList();
-
-                  _foundUsers = allUsers.value;
                 }),
-                child: Text("Expense"),
+                child: const Text("Expense"),
               ),
             ],
           )
@@ -96,7 +89,7 @@ class _ViewListScreenState extends State<ViewListScreen> {
             padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
             child: TextField(
               onChanged: ((value) => _runFilter(value)),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: "Search",
                   prefixIcon: Icon(Icons.search_outlined),
                   enabledBorder: OutlineInputBorder(
@@ -125,7 +118,7 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                       return Slidable(
                                         key: Key(_value.id!),
                                         startActionPane: ActionPane(
-                                            motion: BehindMotion(),
+                                            motion: const BehindMotion(),
                                             children: [
                                               SlidableAction(
                                                 onPressed: (context) {
@@ -133,7 +126,7 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                                       context: context,
                                                       builder: ((context) {
                                                         return AlertDialog(
-                                                          content: Text(
+                                                          content: const Text(
                                                               "DO you want to delete"),
                                                           actions: [
                                                             TextButton(
@@ -143,7 +136,8 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                                                       .pop();
                                                                 },
                                                                 child:
-                                                                    Text("No")),
+                                                                    const Text(
+                                                                        "No")),
                                                             TextButton(
                                                                 onPressed: () {
                                                                   TransactionDB
@@ -154,21 +148,23 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                                                           context)
                                                                       .pop();
                                                                 },
-                                                                child: Text(
-                                                                    "Yes")),
+                                                                child:
+                                                                    const Text(
+                                                                        "Yes")),
                                                           ],
                                                         );
                                                       }));
                                                 },
-                                                backgroundColor: Color.fromARGB(
-                                                    255, 239, 247, 255),
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 239, 247, 255),
                                                 foregroundColor: Colors.red,
                                                 icon: Icons.delete_outlined,
                                                 label: "Delete",
                                               )
                                             ]),
                                         endActionPane: ActionPane(
-                                            motion: BehindMotion(),
+                                            motion: const BehindMotion(),
                                             children: [
                                               SlidableAction(
                                                 onPressed: (ctx) {
@@ -181,8 +177,9 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                                     );
                                                   })));
                                                 },
-                                                backgroundColor: Color.fromARGB(
-                                                    255, 239, 247, 255),
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 239, 247, 255),
                                                 foregroundColor: Colors.blue,
                                                 icon: Icons.edit,
                                               )
@@ -193,12 +190,12 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                               child: ListTile(
                                                 leading: _value.category.type ==
                                                         CategoryType.income
-                                                    ? Icon(
+                                                    ? const Icon(
                                                         Icons.arrow_upward,
                                                         color: Colors.blue,
                                                         size: 30,
                                                       )
-                                                    : Icon(
+                                                    : const Icon(
                                                         Icons.arrow_downward,
                                                         color: Color.fromARGB(
                                                             255, 255, 0, 55),
@@ -206,14 +203,14 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                                       ),
                                                 title: Text(
                                                   _value.category.name,
-                                                  style:
-                                                      TextStyle(fontSize: 20),
+                                                  style: const TextStyle(
+                                                      fontSize: 20),
                                                 ),
                                                 subtitle: Text(
                                                     parseDate(_value.date)),
                                                 trailing: Text(
                                                   " ${_value.amount}",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 20,
                                                       color: Colors.black45,
                                                       fontWeight:
@@ -225,7 +222,7 @@ class _ViewListScreenState extends State<ViewListScreen> {
                                         ),
                                       );
                                     } else {
-                                      return Text("Value is null");
+                                      return const Text("Value is null");
                                     }
                                   })
                               : Padding(

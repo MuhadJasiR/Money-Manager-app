@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, avoid_returning_null_for_void, invalid_use_of_protected_member, prefer_const_literals_to_create_immutables
+// ignore_for_file: no_leading_underscores_for_local_identifiers, invalid_use_of_visible_for_testing_member
 
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/category_db.dart';
@@ -40,10 +40,9 @@ Future<void> showCategoryAddPopup(BuildContext context,
                 : Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
-                      children: [
-                        const RadioButton(
-                            title: "income", type: CategoryType.income),
-                        const RadioButton(
+                      children: const [
+                        RadioButton(title: "income", type: CategoryType.income),
+                        RadioButton(
                             title: "Expense", type: CategoryType.expense),
                       ],
                     )),
@@ -61,7 +60,7 @@ Future<void> showCategoryAddPopup(BuildContext context,
                   }
 
                   if (_name.isEmpty) {
-                    return null;
+                    return;
                   }
                   final _type = categoryType ?? selectedCategoryNotifier.value;
                   final _category = CategoryModel(
@@ -101,7 +100,7 @@ class RadioButton extends StatelessWidget {
                   groupValue: selectedCategoryNotifier.value,
                   onChanged: (value) {
                     if (value == null) {
-                      return null;
+                      return;
                     }
                     selectedCategoryNotifier.value = value;
                     selectedCategoryNotifier.notifyListeners();

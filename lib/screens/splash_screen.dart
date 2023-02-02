@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, no_leading_underscores_for_local_identifiers, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
 
@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // checkFirstScreen(context);
     super.initState();
-    Timer(Duration(seconds: 2), (() async {
+    Timer(const Duration(seconds: 2), (() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool seen = (prefs.getBool("seen") ?? false);
       if (seen) {
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
       } else {
         Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: ((context) {
-          return IntroductionScreen();
+          return const IntroductionScreen();
         })));
       }
     }));
@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               height: 150,
               width: 150,
               child: Image.asset("asset/SplashScreenLogo.png"),

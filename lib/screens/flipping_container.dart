@@ -1,13 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
-
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:money_manager_app/screens/finalcial_report.dart';
-import 'package:money_manager_app/screens/graph_page/pie_chart.dart';
 import 'package:money_manager_app/widgets/total_income_calculation.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class FlippingContainer extends StatefulWidget {
   const FlippingContainer({super.key});
@@ -33,7 +28,7 @@ class _FlippingContainerState extends State<FlippingContainer> {
         front: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Color.fromARGB(255, 47, 137, 255),
+            color: const Color.fromARGB(255, 47, 137, 255),
           ),
           child: Container(
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
@@ -48,12 +43,12 @@ class _FlippingContainerState extends State<FlippingContainer> {
                     children: [
                       Column(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.arrow_circle_up_sharp,
                             color: Colors.white,
                             size: 75,
                           ),
-                          Text(
+                          const Text(
                             "Income",
                             style: TextStyle(
                                 fontSize: 20,
@@ -67,7 +62,7 @@ class _FlippingContainerState extends State<FlippingContainer> {
                                   padding: const EdgeInsets.only(top: 10),
                                   child: Text(
                                     incomeTotal.value.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 30,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
@@ -80,12 +75,12 @@ class _FlippingContainerState extends State<FlippingContainer> {
                   ),
                   Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.arrow_circle_down,
                         color: Colors.white,
                         size: 75,
                       ),
-                      Text(
+                      const Text(
                         "Expenses",
                         style: TextStyle(
                             fontSize: 20,
@@ -99,7 +94,7 @@ class _FlippingContainerState extends State<FlippingContainer> {
                               padding: const EdgeInsets.only(top: 10),
                               child: Text(
                                 expenseTotal.value.toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 30,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
@@ -116,7 +111,7 @@ class _FlippingContainerState extends State<FlippingContainer> {
         back: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Color.fromARGB(255, 47, 137, 255),
+            color: const Color.fromARGB(255, 47, 137, 255),
           ),
           child: Container(
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
@@ -135,7 +130,7 @@ class _FlippingContainerState extends State<FlippingContainer> {
                   };
                   List<Map> dataList = [incomeMap, expenseMap];
                   return value.isEmpty
-                      ? Center(
+                      ? const Center(
                           child: Text(
                           "No data",
                           selectionColor: Colors.white,

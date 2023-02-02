@@ -1,5 +1,3 @@
-// ignore_for_file: sort_child_properties_last, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/screens/view_all.dart';
@@ -10,17 +8,16 @@ class FiltrationViewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      icon: Icon(Icons.calendar_month),
+      icon: const Icon(Icons.calendar_month),
       itemBuilder: (context) => [
         PopupMenuItem(
-          child: Text("All"),
           onTap: (() {
             allUsers.value =
                 TransactionDB.instance.transactionListNotifier.value;
           }),
+          child: const Text("All"),
         ),
         PopupMenuItem(
-          child: Text("Today"),
           onTap: (() {
             TransactionDB.instance.transactionListNotifier.value;
             allUsers.value = allUsers.value
@@ -30,9 +27,9 @@ class FiltrationViewList extends StatelessWidget {
                     element.date.year == DateTime.now().year)
                 .toList();
           }),
+          child: const Text("Today"),
         ),
         PopupMenuItem(
-          child: Text("Yesterday"),
           onTap: (() {
             allUsers.value =
                 TransactionDB.instance.transactionListNotifier.value;
@@ -43,9 +40,9 @@ class FiltrationViewList extends StatelessWidget {
                     element.date.year == DateTime.now().year)
                 .toList();
           }),
+          child: const Text("Yesterday"),
         ),
         PopupMenuItem(
-          child: Text("Month"),
           onTap: (() {
             allUsers.value =
                 TransactionDB.instance.transactionListNotifier.value;
@@ -55,6 +52,7 @@ class FiltrationViewList extends StatelessWidget {
                     element.date.year == DateTime.now().year)
                 .toList();
           }),
+          child: const Text("Month"),
         ),
       ],
     );

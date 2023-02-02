@@ -1,10 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/intro_page/indro_page1.dart';
 import 'package:money_manager_app/intro_page/intro_page2.dart';
 import 'package:money_manager_app/intro_page/intro_page3.dart';
-import 'package:money_manager_app/intro_page/login_page.dart';
 import 'package:money_manager_app/widgets/bottom_navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -17,7 +16,7 @@ class IntroductionScreen extends StatefulWidget {
 }
 
 class _IntroductionScreenState extends State<IntroductionScreen> {
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
   bool onLastPage = false;
 
   @override
@@ -40,7 +39,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             ],
           ),
           Container(
-            alignment: Alignment(0, 0.90),
+            alignment: const Alignment(0, 0.90),
             child: onLastPage
                 ? ElevatedButton(
                     onPressed: () async {
@@ -53,7 +52,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                               builder: ((context) => BottomNavBar(context))),
                           (route) => false);
                     },
-                    child: Text("GET STARTED"))
+                    child: const Text("GET STARTED"))
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -61,20 +60,20 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                         onTap: () {
                           _controller.jumpToPage(2);
                         },
-                        child: Text("Skip"),
+                        child: const Text("Skip"),
                       ),
                       SmoothPageIndicator(
                         controller: _controller,
                         count: 3,
-                        effect: WormEffect(),
+                        effect: const WormEffect(),
                       ),
                       GestureDetector(
                         onTap: () {
                           _controller.nextPage(
-                              duration: Duration(milliseconds: 200),
+                              duration: const Duration(milliseconds: 200),
                               curve: Curves.easeIn);
                         },
-                        child: Text("Next"),
+                        child: const Text("Next"),
                       )
                     ],
                   ),

@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
 import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/screens/graph_page/expense_chart.dart';
@@ -44,17 +41,17 @@ class _FinancialChartState extends State<FinancialChart>
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: Text("Financial chart"),
+        title: const Text("Financial chart"),
         actions: [
           PopupMenuButton(
-              icon: Icon(Icons.filter_list_rounded),
+              icon: const Icon(Icons.filter_list_rounded),
               itemBuilder: ((context) => [
                     PopupMenuItem(
                         onTap: (() {
                           doughnutChartNotifier.value = TransactionDB
                               .instance.transactionListNotifier.value;
                         }),
-                        child: Text("All")),
+                        child: const Text("All")),
                     PopupMenuItem(
                         onTap: (() {
                           doughnutChartNotifier.value = TransactionDB
@@ -68,7 +65,7 @@ class _FinancialChartState extends State<FinancialChart>
                                   element.date.year == DateTime.now().year)
                               .toList();
                         }),
-                        child: Text("Today")),
+                        child: const Text("Today")),
                     PopupMenuItem(
                         onTap: (() {
                           doughnutChartNotifier.value = TransactionDB
@@ -82,7 +79,7 @@ class _FinancialChartState extends State<FinancialChart>
                                   element.date.year == DateTime.now().year)
                               .toList();
                         }),
-                        child: Text("Yesterday")),
+                        child: const Text("Yesterday")),
                     PopupMenuItem(
                         onTap: (() {
                           doughnutChartNotifier.value = TransactionDB
@@ -95,23 +92,23 @@ class _FinancialChartState extends State<FinancialChart>
                                   element.date.year == DateTime.now().year)
                               .toList();
                         }),
-                        child: Text("This month")),
+                        child: const Text("This month")),
                   ]))
         ],
       ),
       body: Column(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color.fromARGB(255, 35, 45, 255),
             ),
             child: TabBar(
                 controller: _tabController2,
                 unselectedLabelColor: Colors.white,
-                labelColor: Color.fromARGB(255, 35, 45, 255),
+                labelColor: const Color.fromARGB(255, 35, 45, 255),
                 indicatorWeight: 2,
                 indicator: BoxDecoration(
-                    color: Color.fromARGB(255, 149, 204, 255),
+                    color: const Color.fromARGB(255, 149, 204, 255),
                     borderRadius: BorderRadius.circular(2)),
                 tabs: const [
                   Tab(

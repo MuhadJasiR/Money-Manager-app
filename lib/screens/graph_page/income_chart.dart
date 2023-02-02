@@ -1,6 +1,7 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
-import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
 import 'package:money_manager_app/screens/finalcial_report.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -22,7 +23,7 @@ class _Income_chartState extends State<Income_chart> {
               .where((element) => element.category.type == CategoryType.income)
               .toList();
           return allIncomeData.isEmpty
-              ? Container(
+              ? SizedBox(
                   height: 20,
                   child: Image.asset("asset/25943-nodata.gif", height: 30),
                 )
@@ -42,7 +43,7 @@ class _Income_chartState extends State<Income_chart> {
                             yValueMapper: (TransactionModel data, _) =>
                                 data.amount,
                             dataLabelSettings:
-                                DataLabelSettings(isVisible: true)),
+                                const DataLabelSettings(isVisible: true)),
                       ],
                     ),
                   ],

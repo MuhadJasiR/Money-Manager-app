@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/screens/add_screen.dart';
 import 'package:money_manager_app/screens/categories.dart';
@@ -19,14 +17,14 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
   // static ValueNotifier<int> selectIndexNotifier = ValueNotifier(0);
   int currentTab = 0;
   final List<Widget> screens = [
-    HomeScreen(),
-    Categories(),
-    FinancialChart(),
-    SettingScreen()
+    const HomeScreen(),
+    const Categories(),
+    const FinancialChart(),
+    const SettingScreen()
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = HomeScreen();
+  Widget currentScreen = const HomeScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +39,7 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
             switch (currentTab) {
               case 0:
                 Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                  return AddTransaction();
+                  return const AddTransaction();
                 })));
                 break;
               case 1:
@@ -50,28 +48,14 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                 break;
               default:
             }
-            // if (currentTab == 0) {
-            // Navigator.push(context, MaterialPageRoute(builder: ((context) {
-            //   return AddTransaction();
-            // })));
-            // }  else  {
-            // showCategoryAddPopup(context);
-            //   // print("add category");
-            //   // final _sample = CategoryModel(
-            //   //   id: DateTime.now().microsecondsSinceEpoch.toString(),
-            //   //   name: "travel",
-            //   //   type: CategoryType.expense,
-            //   // );
-            //   // CategoryDB().insertCategory(_sample);
-            // }
           },
           // ignore: sort_child_properties_last
-          child: Icon(Icons.add),
-          backgroundColor: Color.fromARGB(255, 35, 43, 255),
+          child: const Icon(Icons.add),
+          backgroundColor: const Color.fromARGB(255, 35, 43, 255),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
-          shape: CircularNotchedRectangle(),
+          shape: const CircularNotchedRectangle(),
           notchMargin: 10,
           // ignore: sized_box_for_whitespace
           child: Container(
@@ -86,7 +70,7 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                       minWidth: 40,
                       onPressed: () {
                         setState(() {
-                          currentScreen = HomeScreen();
+                          currentScreen = const HomeScreen();
                           currentTab = 0;
                         });
                       },
@@ -97,7 +81,7 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                             Icons.home,
                             size: 40,
                             color: currentTab == 0
-                                ? Color.fromARGB(255, 35, 43, 255)
+                                ? const Color.fromARGB(255, 35, 43, 255)
                                 : Colors.grey,
                           ),
                         ],
@@ -107,7 +91,7 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                       minWidth: 40,
                       onPressed: () {
                         setState(() {
-                          currentScreen = Categories();
+                          currentScreen = const Categories();
                           currentTab = 1;
                         });
                       },
@@ -118,7 +102,7 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                             Icons.category_outlined,
                             size: 40,
                             color: currentTab == 1
-                                ? Color.fromARGB(255, 35, 43, 255)
+                                ? const Color.fromARGB(255, 35, 43, 255)
                                 : Colors.grey,
                           ),
                         ],
@@ -133,7 +117,7 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                       minWidth: 40,
                       onPressed: () {
                         setState(() {
-                          currentScreen = FinancialChart();
+                          currentScreen = const FinancialChart();
                           currentTab = 2;
                         });
                       },
@@ -144,7 +128,7 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                             Icons.donut_large_rounded,
                             size: 40,
                             color: currentTab == 2
-                                ? Color.fromARGB(255, 35, 43, 255)
+                                ? const Color.fromARGB(255, 35, 43, 255)
                                 : Colors.grey,
                           ),
                         ],
@@ -154,7 +138,7 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                       minWidth: 40,
                       onPressed: () {
                         setState(() {
-                          currentScreen = SettingScreen();
+                          currentScreen = const SettingScreen();
                           currentTab = 3;
                         });
                       },
@@ -165,7 +149,7 @@ class _BottomNavigationBarState extends State<BottomNavBar> {
                             Icons.settings,
                             size: 40,
                             color: currentTab == 3
-                                ? Color.fromARGB(255, 35, 43, 255)
+                                ? const Color.fromARGB(255, 35, 43, 255)
                                 : Colors.grey,
                           ),
                         ],

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, sized_box_for_whitespace, avoid_print, use_build_context_synchronously, prefer_typing_uninitialized_variables
+// ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,7 +8,10 @@ import 'package:money_manager_app/db/transaction_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
 import 'package:money_manager_app/widgets/category_add_popup.dart';
 
-List<Widget> transactionType = <Widget>[Text("INCOME"), Text("EXPENSE")];
+List<Widget> transactionType = <Widget>[
+  const Text("INCOME"),
+  const Text("EXPENSE")
+];
 bool vertical = false;
 
 class AddTransaction extends StatefulWidget {
@@ -51,13 +54,13 @@ class _AddTransactionState extends State<AddTransaction> {
             Container(
               height: 200,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 45, 35, 255),
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(60),
                       bottomRight: Radius.circular(60))),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 120, top: 50),
+              child: const Padding(
+                padding: EdgeInsets.only(left: 120, top: 50),
                 child: Text(
                   "Add Transaction",
                   style: TextStyle(
@@ -73,7 +76,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 80),
                   child: Container(
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     height: 630,
                     width: double.infinity,
                     child: Card(
@@ -87,7 +90,7 @@ class _AddTransactionState extends State<AddTransaction> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "Transaction type",
                                   style: TextStyle(
                                       fontSize: 15,
@@ -95,7 +98,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                       color:
                                           Color.fromARGB(255, 128, 128, 128)),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 ToggleButtons(
@@ -110,20 +113,23 @@ class _AddTransactionState extends State<AddTransaction> {
                                       }
                                     });
                                   },
-                                  color: Color.fromARGB(255, 128, 128, 128),
-                                  borderColor: Color.fromARGB(255, 45, 35, 255),
+                                  color:
+                                      const Color.fromARGB(255, 128, 128, 128),
+                                  borderColor:
+                                      const Color.fromARGB(255, 45, 35, 255),
                                   borderRadius: BorderRadius.circular(25),
                                   selectedBorderColor:
-                                      Color.fromARGB(255, 35, 43, 255),
+                                      const Color.fromARGB(255, 35, 43, 255),
                                   selectedColor: Colors.white,
-                                  fillColor: Color.fromARGB(255, 35, 43, 255),
-                                  constraints: BoxConstraints(
+                                  fillColor:
+                                      const Color.fromARGB(255, 35, 43, 255),
+                                  constraints: const BoxConstraints(
                                       minHeight: 30, minWidth: 85),
-                                  children: transactionType,
                                   isSelected: _selectTranscationType,
+                                  children: transactionType,
                                 ),
-                                SizedBox(height: 5),
-                                Text(
+                                const SizedBox(height: 5),
+                                const Text(
                                   "Categories",
                                   style: TextStyle(
                                       fontSize: 15,
@@ -131,8 +137,8 @@ class _AddTransactionState extends State<AddTransaction> {
                                       color:
                                           Color.fromARGB(255, 128, 128, 128)),
                                 ),
-                                SizedBox(height: 15),
-                                Container(
+                                const SizedBox(height: 15),
+                                SizedBox(
                                     height: 40,
                                     child: Row(children: [
                                       Container(
@@ -145,7 +151,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                                   .incomeCategoryListListener,
                                               builder:
                                                   ((context, value, child) {
-                                                return Container(
+                                                return SizedBox(
                                                   width: 285,
                                                   child:
                                                       DropdownButtonHideUnderline(
@@ -153,7 +159,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               2),
-                                                      hint: Text(
+                                                      hint: const Text(
                                                           " Select Category"),
                                                       value: _categoryId,
                                                       items: (selectedType == 1
@@ -175,7 +181,6 @@ class _AddTransactionState extends State<AddTransaction> {
                                                       }).toList(),
                                                       onChanged:
                                                           (selectedValue) {
-                                                        print(selectedValue);
                                                         setState(() {
                                                           _categoryId =
                                                               selectedValue;
@@ -189,7 +194,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                           onPressed: () {
                                             showCategoryAddPopup(context);
                                           },
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.add_box_outlined,
                                             color: Color.fromARGB(
                                                 255, 35, 45, 255),
@@ -200,11 +205,11 @@ class _AddTransactionState extends State<AddTransaction> {
                                       const EdgeInsets.only(left: 8, top: 8),
                                   child: Text(
                                     _selectedCategoryMessages,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 12, color: Colors.red),
                                   ),
                                 ),
-                                Text(
+                                const Text(
                                   "Amount",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
@@ -213,7 +218,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                       color:
                                           Color.fromARGB(255, 128, 128, 128)),
                                 ),
-                                SizedBox(height: 15),
+                                const SizedBox(height: 15),
                                 TextFormField(
                                   // ignore: body_might_complete_normally_nullable
                                   validator: ((value) {
@@ -223,14 +228,14 @@ class _AddTransactionState extends State<AddTransaction> {
                                   }),
                                   controller: _amountTextEditingController,
                                   keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       isDense: true,
                                       fillColor: Colors.white,
                                       border: OutlineInputBorder(),
                                       filled: true),
                                 ),
-                                SizedBox(height: 15),
-                                Text(
+                                const SizedBox(height: 15),
+                                const Text(
                                   "Notes",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
@@ -239,7 +244,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                       color:
                                           Color.fromARGB(255, 128, 128, 128)),
                                 ),
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 TextFormField(
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
@@ -252,13 +257,13 @@ class _AddTransactionState extends State<AddTransaction> {
                                   maxLines: 3,
                                   minLines: 3,
                                   controller: _notesTextEditingController,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       isDense: true,
                                       fillColor: Colors.white,
                                       border: OutlineInputBorder(),
                                       filled: true),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 TextFormField(
@@ -284,10 +289,11 @@ class _AddTransactionState extends State<AddTransaction> {
                                       hintText: (_selectedDate == null
                                           ? "Select Date"
                                           : parseDate(_selectedDate!)),
-                                      prefixIcon: Icon(Icons.calendar_month),
+                                      prefixIcon:
+                                          const Icon(Icons.calendar_month),
                                       isDense: true,
                                       fillColor: Colors.white,
-                                      border: OutlineInputBorder(),
+                                      border: const OutlineInputBorder(),
                                       filled: true),
                                 ),
                                 Padding(
@@ -295,12 +301,12 @@ class _AddTransactionState extends State<AddTransaction> {
                                       left: 10, top: 9, bottom: 3),
                                   child: Text(
                                     _selectedDateMessages,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.red, fontSize: 12),
                                   ),
                                 ),
                                 Center(
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 180,
                                     child: ElevatedButton(
                                         style: ButtonStyle(
@@ -334,7 +340,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                                         "Transaction added")));
                                           }
                                         },
-                                        child: Text("Add")),
+                                        child: const Text("Add")),
                                   ),
                                 ),
                               ],

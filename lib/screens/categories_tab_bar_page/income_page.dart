@@ -1,4 +1,3 @@
-// ignore_for_file: unused_local_variable, prefer_const_constructors, sort_child_properties_last
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/category_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
@@ -30,6 +29,8 @@ class IncomePageScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.blue[200],
                         ),
+                        height: 20,
+                        width: 40,
                         child: Column(
                           children: [
                             Padding(
@@ -40,14 +41,14 @@ class IncomePageScreen extends StatelessWidget {
                                         context: context,
                                         builder: ((context) {
                                           return AlertDialog(
-                                            content:
-                                                Text("Do you want to delete"),
+                                            content: const Text(
+                                                "Do you want to delete"),
                                             actions: [
                                               TextButton(
                                                   onPressed: () {
                                                     Navigator.of(context).pop();
                                                   },
-                                                  child: Text("No")),
+                                                  child: const Text("No")),
                                               TextButton(
                                                   onPressed: () {
                                                     CategoryDB.instance
@@ -55,12 +56,12 @@ class IncomePageScreen extends StatelessWidget {
                                                             category.id);
                                                     Navigator.of(context).pop();
                                                   },
-                                                  child: Text("Yes")),
+                                                  child: const Text("Yes")),
                                             ],
                                           );
                                         }));
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.dangerous_sharp,
                                     color: Colors.red,
                                     size: 20,
@@ -69,15 +70,13 @@ class IncomePageScreen extends StatelessWidget {
                             Text(
                               category.name,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
                                   color: Color.fromARGB(255, 255, 255, 255)),
                             ),
                           ],
                         ),
-                        height: 20,
-                        width: 40,
                       );
                     }))
                 : Padding(

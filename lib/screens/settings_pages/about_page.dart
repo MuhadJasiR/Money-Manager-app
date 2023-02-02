@@ -49,7 +49,7 @@ class AboutScreen extends StatelessWidget {
                         height: 14,
                       ),
                       Text(
-                        "Muhammed Jasir Ali",
+                        "Muhammad Jasir Ali",
                         style:
                             TextStyle(color: Color.fromARGB(255, 35, 45, 255)),
                       ),
