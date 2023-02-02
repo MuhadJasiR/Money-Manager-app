@@ -1,5 +1,3 @@
-// ignore_for_file: sort_child_properties_last
-
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/category_db.dart';
 import 'package:money_manager_app/models/category_modal.dart';
@@ -30,6 +28,8 @@ class ExpenseScreenPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.teal[200],
                       ),
+                      height: 20,
+                      width: 40,
                       child: Column(
                         children: [
                           Padding(
@@ -81,11 +81,6 @@ class ExpenseScreenPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      height: 20,
-                      width: 40,
-                      // child: Card(
-                      //   color: Color.fromARGB(255, 45, 35, 255),
-                      // ),
                     );
                   }))
               : Padding(

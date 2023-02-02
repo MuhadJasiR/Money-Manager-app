@@ -41,7 +41,7 @@ class _ExpensesChartState extends State<ExpensesChart> {
                             yValueMapper: (TransactionModel data, _) =>
                                 data.amount,
                             dataLabelSettings:
-                                DataLabelSettings(isVisible: true)),
+                                const DataLabelSettings(isVisible: true)),
                       ],
                     ),
                   ],
