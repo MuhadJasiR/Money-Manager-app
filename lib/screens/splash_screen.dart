@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // checkFirstScreen(context);
     super.initState();
-    Timer(const Duration(seconds: 2), (() async {
+    Timer(const Duration(seconds: 4), (() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool seen = (prefs.getBool("seen") ?? false);
       if (seen) {
@@ -39,6 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -46,10 +47,13 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(
               height: 150,
               width: 150,
-              child: Image.asset("asset/SplashScreenLogo.png"),
+              child: Image.asset(
+                "asset/mainLogo.png",
+                height: 150,
+              ),
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             const Text(
               "Money Manager",
