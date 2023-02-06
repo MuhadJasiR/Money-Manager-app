@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             SizedBox(
               child: Stack(
+                // alignment: AlignmentDirectional.bottomCenter,
                 clipBehavior: Clip.none,
                 children: [
                   Container(
@@ -54,27 +55,26 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Positioned(
-                    left: 115,
-                    top: 70,
-                    child: Column(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 30),
-                          child: Center(
-                            child: Text(
-                              "Total Balance",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 212, 212, 212),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                          ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 70,
+                      ),
+                      const Center(
+                        child: Text(
+                          "Total Balance",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 212, 212, 212),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
                         ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        ValueListenableBuilder(
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Center(
+                        child: ValueListenableBuilder(
                             valueListenable: totalAmount,
                             builder: ((context, value, _) {
                               return Text(
@@ -84,12 +84,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 40),
                               );
-                            }))
-                      ],
+                            })),
+                      )
+                    ],
+                  ),
+                  Positioned(
+                    top: 160,
+                    child: Container(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      width: MediaQuery.of(context).size.width,
+                      child: const FlippingContainer(),
                     ),
                   ),
-                  const Positioned(
-                      left: 23.5, top: 160, child: FlippingContainer()),
                 ],
               ),
             ),
@@ -254,13 +260,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                               })
                           // image which will if there is transaction li
-                          : Column(
-                              children: [
-                                Image.asset(
-                                  "asset/126320-empty-box3-unscreen.gif",
-                                  height: 250,
-                                ),
-                              ],
+                          : SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    "asset/126320-empty-box3-unscreen.gif",
+                                    height: 250,
+                                  ),
+                                ],
+                              ),
                             );
                     },
                   )),

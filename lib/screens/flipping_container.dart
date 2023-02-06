@@ -21,6 +21,7 @@ class _FlippingContainerState extends State<FlippingContainer> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return FlipCard(
         direction: FlipDirection.VERTICAL,
         flipOnTouch: true,
@@ -33,7 +34,7 @@ class _FlippingContainerState extends State<FlippingContainer> {
           child: Container(
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
             height: 210,
-            width: 360,
+            width: size.width > size.height ? size.width / 2 : size.width - 40,
             child: Padding(
               padding: const EdgeInsets.only(top: 25),
               child: Row(

@@ -323,8 +323,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 72),
+                                Center(
                                   child: SizedBox(
                                     width: 180,
                                     child: ElevatedButton(
