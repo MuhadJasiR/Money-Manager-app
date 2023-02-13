@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/db/category_db.dart';
 import 'package:money_manager_app/db/transacrtion_model.dart';
@@ -72,15 +73,20 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(60),
                       bottomRight: Radius.circular(60))),
-              child: const Padding(
-                padding: EdgeInsets.only(left: 120, top: 50),
-                child: Text(
-                  "Edit Transaction",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 50),
+                    child: Text(
+                      "Edit Transaction",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  ),
+                ],
               ),
             ),
             Positioned(
@@ -190,7 +196,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                   child: Row(
                                     children: [
                                       Container(
-                                          width: 288,
+                                          width: kIsWeb ? 1800 : 285,
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                                 color: Colors.black54),

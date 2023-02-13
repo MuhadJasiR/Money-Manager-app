@@ -131,11 +131,11 @@ class SettingScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 380,
+              height: 10,
             ),
             const Text(
-              "version 1.0.0",
-              style: TextStyle(color: Colors.black38),
+              "version 1.0.1",
+              style: TextStyle(color: Colors.black12),
             )
           ],
         ),

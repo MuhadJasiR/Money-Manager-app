@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager_app/db/category_db.dart';
@@ -45,6 +46,7 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -59,15 +61,20 @@ class _AddTransactionState extends State<AddTransaction> {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(60),
                       bottomRight: Radius.circular(60))),
-              child: const Padding(
-                padding: EdgeInsets.only(left: 120, top: 50),
-                child: Text(
-                  "Add Transaction",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 50),
+                    child: Text(
+                      "Add Transaction",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  ),
+                ],
               ),
             ),
             Positioned(
@@ -141,21 +148,20 @@ class _AddTransactionState extends State<AddTransaction> {
                                 SizedBox(
                                     height: 40,
                                     child: Row(children: [
-                                      Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.black54),
-                                          ),
-                                          child: ValueListenableBuilder(
-                                              valueListenable: CategoryDB()
-                                                  .incomeCategoryListListener,
-                                              builder:
-                                                  ((context, value, child) {
-                                                return SizedBox(
-                                                  width: 285,
-                                                  child:
-                                                      DropdownButtonHideUnderline(
-                                                    child: DropdownButton(
+                                      Expanded(
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black54),
+                                            ),
+                                            child: ValueListenableBuilder(
+                                                valueListenable: CategoryDB()
+                                                    .incomeCategoryListListener,
+                                                builder:
+                                                    ((context, value, child) {
+                                                  return DropdownButtonHideUnderline(
+                                                    child:
+                                                        DropdownButtonFormField(
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               2),
@@ -187,9 +193,9 @@ class _AddTransactionState extends State<AddTransaction> {
                                                         });
                                                       },
                                                     ),
-                                                  ),
-                                                );
-                                              }))),
+                                                  );
+                                                }))),
+                                      ),
                                       IconButton(
                                           onPressed: () {
                                             showCategoryAddPopup(context);
@@ -343,6 +349,18 @@ class _AddTransactionState extends State<AddTransaction> {
                                         child: const Text("Add")),
                                   ),
                                 ),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                kIsWeb
+                                    ? Center(
+                                        child: ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text("Exit")),
+                                      )
+                                    : const SizedBox()
                               ],
                             ),
                           ),

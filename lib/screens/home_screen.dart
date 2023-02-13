@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -102,7 +103,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 25, top: 130, left: 25),
+                  padding: kIsWeb
+                      ? const EdgeInsets.only(right: 70, top: 130, left: 70)
+                      : const EdgeInsets.only(right: 25, top: 130, left: 25),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -136,7 +139,9 @@ class _HomeScreenState extends State<HomeScreen> {
             // Transaction list,
             Expanded(
               child: Padding(
-                  padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
+                  padding: kIsWeb
+                      ? const EdgeInsets.only(top: 15, left: 90, right: 90)
+                      : const EdgeInsets.only(top: 15, left: 15, right: 15),
                   child: ValueListenableBuilder(
                     valueListenable:
                         TransactionDB.instance.transactionListNotifier,
